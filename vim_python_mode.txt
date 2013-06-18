@@ -1,0 +1,8 @@
+vim python mode
+
+Betty installed from clean (i.e. with no python vim modifications)
+shortcut keys for switching vim  Windows and python mode specific keys all need mapping
+e.g. for auto run from within vim ,python documentation, ctrl-space "rope" auto completion, breakpoints set/unset (currently s-b)
+
+Todo: install plug-ins as bundles using pathogen
+pdb plug-in needs installing?

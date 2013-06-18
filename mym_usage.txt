@@ -1,0 +1,27 @@
+mym --show-progress variant:000-dev 
+# this avoids problems with display, set config without py gui from command line
+# after the first build, variant options do not need to be set, can also specify object e.g. mym brasReceiveThreads.o and it will be found and only files needed for this object are built
+
+
+Mym cleans out the environment, including PATH, before it starts running the build.
+
+There is a bit in MymMainfile where it includes /common_tools/setup.mym - this add common_tools paths back into PATH, and makes a few similar changes.
+
+Recommended to build using variant for customer 1
+
+
+If you run ‘mym variant?’, you get a list of the available variants.
+
+To set the options requires editing the file build/configs/default.py and modifying the ‘selectedOptions’ list. For example, the Enable pseudo process messaging option is enabled by adding ‘psuedo_message_processing’ to the list, as in::
+
+    selecteOptions = [‘psuedo_message_processing’, ‘some_other_option’]
+
+BTW. The ‘psuedo...’ above is the spelling you need due to a type in the build/master_config file.
+
+The names for the options can be found in the ‘[[options]]’ section of build/master_config.
+
+Finally, I think that the default.py file may not exists until you have selected you initial variant. So you may want to do, for example::
+
+     mym variant:cust-1 wibble
+
+The ‘wibble’ is so that mym fails and stops, so you can then edit default.py.

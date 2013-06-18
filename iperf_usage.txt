@@ -1,0 +1,6 @@
+UDP performance test 90 Mb/s 1470 Byte packets
+
+Client:
+iperf -c 192.168.1.199 -b 90000000 -l 1470
+Server:
+iperf -s -u -l 1470

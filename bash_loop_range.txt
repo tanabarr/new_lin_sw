@@ -1,0 +1,35 @@
+PFX='192.168.1.'
+for i in 255
+do
+IPSTR=$PFX:$i
+ping -n 2 $IPSTR
+done
+
+for file in /{,usr/}bin/*calc
+# ^ Find all executable files ending in "calc"
+#+ in /bin and /usr/bin directories.
+do
+if [ -x "$file" ]
+then
+echo $file
+fi
+done
+# /bin/ipcalc
+# /usr/bin/kcalc
+# /usr/bin/oidcalc
+# /usr/bin/oocalc
+# Thank you, Rory Winston, for pointing this out.
+,, ,
+Lowercase conversion in parameter substitution (added in version 4 of Bash).
+\
+escape [backslash]. A quoting mechanism for single characters.
+\X escapes the character X. This has the effect of "quoting" X, equivalent to 'X'. The \ may be used to
+quote " and ', so they are expressed literally.
+See Chapter 5 for an in-depth explanation of escaped characters.
+/
+Filename path separator [forward slash]. Separates the components of a filename (as in
+/home/bozo/projects/Makefile).
+This is also the division arithmetic operator.
+`
+command substitution. The `command` construct makes available the output of command for
+Chapter 3.

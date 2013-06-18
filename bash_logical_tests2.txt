@@ -1,0 +1,38 @@
+Testing statements in bash
+
+
+tom@pal:~$ [ -f .bashrc ] :echo  yes
+-bash: [: missing `]'
+tom@pal:~$ [ -f .bashrc ] echo  yes
+-bash: [: missing `]'
+tom@pal:~$ [ -f .bashrc ] && echo  yes
+yes
+tom@pal:~$ [ -f .bashrc && -f .dmrc ] && echo  yes
+-bash: [: missing `]'
+tom@pal:~$ [ -f .bashrc ] && [ -f .dmrc ] && echo  yes
+yes
+tom@pal:~$ [ -f .bashrc ] && [ -f .dmrc ] && echo  yes | echo no
+no
+tom@pal:~$ [ -f .bashrc ] && [ -f .dmr ] && echo  yes | echo no
+tom@pal:~$  [[ -f .bashrc ] && [ -f .dmr ]] && echo  yes | echo no
+-bash: syntax error in conditional expression
+-bash: syntax error near `]'
+tom@pal:~$ and drop seven
+tom@pal:~$ vim .bash_profile
+tom@pal:~$ [ -f .bashrc ] && [ -f .dmrc ] && echo  yes || echo no
+yes
+tom@pal:~$ [ -f .bashrc ] && [ -f .dmr ] && echo  yes || echo no
+no
+tom@pal:~$ the
+/*****************************************//*****************************************/
+
+
+
+# Can't seem to start vncserver in normal fashion
+#if [ "$(pidof Xvnc)" ]; then
+#if [ ! -f ~/.vnc/pal:?.pid ] ; then
+if [ ! -f ~/.vnc/pal:?.pid ] || [ ! "$(pidof Xvnc)" ]; then
+    echo "vnc not found, starting vnc!"
+    vncserver
+fi
+/*****************************************//*****************************************/

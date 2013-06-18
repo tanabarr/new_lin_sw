@@ -1,0 +1,104 @@
+ls 
+For vimpdb to work we need vim compiled with clientserver and python capabilities.
+Obtain source vim73 (/usr/src)
+
+/*****************************************//*****************************************/
+first attempt for python enabled:
+Cygwin vim installation to support python 
+use of "alternatives" (Debian concept?) To select easy editor alternatives
+
+" 958  ./configure --prefix=/usr/local --enable-multibyte --without-x --enable-gui=no --enable-pythoninterp
+  959  make
+  960  whereis vim
+  961  vim
+  962  /usr/local/bin/vim
+  963  echo $PATH
+  964  vim.exe
+  965  ls /usr/local/bin/vim
+  966  vim
+  967  ll /usr/local/bin/vim
+  968  whereis vim
+  969  env
+  970  env |grep PATH
+  971  ll /usr/local/
+  972  ll /usr/local/bin/
+  973  cd  /usr/local/bin/
+  974  ln -snf vim.exe vim
+  975  vim
+  976  ll /usr/bin
+  977  whereis vim
+  978  ll /bin/vim
+  979  ll /etc/alternatives/
+  980  alternatives
+  981  ll
+  982  whereis alternatives
+  983  /usr/sbin/alternatives
+  984  /usr/sbin/alternatives display
+  985  /usr/sbin/alternatives display editor
+  986  /usr/sbin/alternatives display myeditor
+  987  ll
+  988  /usr/sbin/alternatives --config vim
+  989  vim
+  990  /usr/sbin/alternatives --install /etc/alternatives/vim vim /usr/local/bin/vim 99
+  991  /usr/sbin/alternatives --install /etc/alternatives/vim vim /usr/local/bin/vim 90
+  992  /usr/sbin/alternatives --config vim
+  993  ls
+  994  ln -snf ./vim.exe /usr/bin/vim
+  995  ls /usr/bin/
+  996  ll /usr/bin/
+  997  ln -snf /etc/alternatives/vim /usr/bin/vim
+  998  ll /usr/bin/
+  999  /usr/sbin/alternatives --install /etc/alternatives/vim vim /usr/local/bin/vim 80
+ 1000  ll /usr/bin/
+ 1001  ls
+ 1002  ll /etc/alternatives
+ 1003  ln -snf /usr/local/bin/vim.exe /usr/bin/vim-py.exe
+ 1004  /usr/sbin/alternatives --install /etc/alternatives/vim vim /usr/bin/vim-py.exe 80
+ 1005  /usr/sbin/alternatives --install /etc/alternatives/vim /usr/bin/vim /usr/bin/vim-py.exe 80
+ 1006  /usr/sbin/alternatives --install /usr/bin/vim vim /usr/bin/vim-py.exe 80
+ 1007  /usr/sbin/alternatives --config vim
+ "
+note 1006 the successful installation of the alternative
+/usr/bin/vim-py symbolic link is arbitrary
+/*****************************************//*****************************************/
+
+Now need to enable with clientserver option selected when running configure script.&
+./configure --prefix=/usr/local --enable-multibyte --without-x --enable-gui=no --enable-pythoninterp --enable-clientserver
+
+--with-features=huge enables clientserver on Red Hat enterprise distribution.
+
+/*****************************************//*****************************************/
+install with Python support:
+
+ hg clone https://vim.googlecode.com/hg/ vim
+$ cd vim/src
+$ ./configure \
+--enable-multibyte \
+--without-x \
+--enable-gui=no \
+--enable-pythoninterp
+
+$ make
+$ make install
+$ ln -sf /usr/local/bin/vim.exe /usr/bin/vim
+Make sure you have installed libncurses-devel for Cygwin beforehand.
+
+/*****************************************//*****************************************/
+previous didn't seem to work…
+… Sensible way would be to edit the makefile:
+
+cd /usr/src/vim73/src/
+
+  629  vim Makefile
+  630  make clean
+  631  make distclean
+  632  make config
+  633  make
+  634  ./vim.exe
+  635  make install
+  636  vim
+
+Makefile modified to provide python support and multibyte and remove gui support
+make config runs through makefile to set up the build context (configure)
+make then performs the build (make config not required on its own, useful for clarity)
+once happy with vim.exe created, make install distributes the executable

@@ -1,0 +1,4 @@
+systemd is the initialisation control daemon from Fedora 15, amalgamates sysv style start-up scripts and chkconfig. Use the systemctl to control services (instead of services network start for example):
+	systemctl disable NetworkManager.service
+
+chkconfig, mount --bind in fstab and service --status-all commands, all very usefull !

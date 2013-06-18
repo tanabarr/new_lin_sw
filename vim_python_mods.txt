@@ -1,0 +1,115 @@
+vim modifications for python editing
+
+packages:
+vim-full
+vim-python (installed in most full distributions, not in cygwin by default). A
+
+Plug-ins:
+tasklist
+?? Not a plug-in?? Exuberant ctags 
+vimtags/taglist
+minibufexplorer
+omni completion (should be Python enabled)
+
+
+
+Things to note:
+modification for the right version of Python 
+test ctags works properly
+
+Scripts:
+
+python.vim - Place in .vim/syntax for highlighting
+
+pythoncomplete.vim - ftplugin type
+To use this plugin, make sure ftplugins are enabled, via "filetype plugin on".
+Filetype detection will set the omnifunction appropriately.
+Requires Vim7 compiled with +python support.
+Place ~/.vim/autoload/ or $VIMRUNTIME/autoload/
+ 
+minibufexpl.vim 
+Copy minibufexpl.vim into your plugin directory. Or :source minibufexpl.vim. That is all you need to get started.
+If you want to enable extra functionality (documented in the source) you might want to add the following to your .vimrc:
+  let g:miniBufExplMapWindowNavVim = 1
+  let g:miniBufExplMapWindowNavArrows = 1
+  let g:miniBufExplMapCTabSwitchBufs = 1
+  let g:miniBufExplModSelTarget = 1
+
+tasklist.vim
+drop into plug-in directory
+
+Omnicomplete
+filetype plugin on
+set ofu=syntaxcomplete#Complete
+
+vimpdb
+drop .vim and.py files plug-in directory
+
+Indent and ftplugin directories added for enabling correct dictation and file type specific parameters for all python files.
+
+Key mappings added to /etc/vimrc for clarity
+tag list sent to focus on list when toggled: T
+
+
+
+FOLDING:
+
+1. Only top level class or function definitions are folded (no nesting)
+2. Folding is done one line after the class or function definition, so
+    for example the line 'class foo( bar )' is right above the fold
+3. Fold text is the first line of the corresponding docstring (if any)
+    together with the number of folded lines
+4. Toggle all folds on/off with the key F
+5. Toggle the fold under the cursor on/off with the key f
+6. In some rare cases folding can break down which can be fixed by :call ReFold()
+    The reason for this break down is not known sometimes it happens when jumping
+    between different files using t&ags.
+
+
+
+When trying to add large numbers of files and tags, can crash
+(need to learn how to use buffers properly)
+
+
+Nerd tree for navigation 
+Unzip the archive into your ~/.vim directory.
+That should put NERD_tree.vim in ~/.vim/plugin and NERD_tree.txt in ~/.vim/doc.
+
+
+Auto execute-files
+autocmd FileType python map <buffer> <S-e> :w<CR>:!/usr/bin/env python % <CR>
+
+
+/*****************************************//*****************************************/
+051112
+better approach is to use pathogen and extract plug-ins to bundles directory
+possibly replace nerdtree functionality with textmate
+also pythonmode seems to be better than doing pythonautocomplete and omni…
+Includes pyflakes, pylint and pep8 checking
+
+folding commands included
+tasklist included
+
+pep8 checking can then be fixed with autopep8 python package, this is not a clean solution (.vimrc)
+
+vimpdb python package should be installed to be able to include breakpoints with pythonmode
+newest version of vimpdb requires installation using easy_install, not in plug-in directory
+-not so simple to use with cygwin, may require rebuilding vim with clientserver enabled, can check with ":version" inside vim .
+
+Ctags still need to be managed, jumping to functions doesn't work just with pythonmode
+autocomplete only work on standards types (or maybe you just need to run first)
+
+/*****************************************//*****************************************/
+071112
+remember that pathogen requires vim73
+can be compiled with clientserver on Red Hat enterprise with--with-features=huge (needed for vimpdb)
+turnoff cscope within vimrc
+tags updating not quite right
+don't forget "call pathogen#…" Command invimrc
+
+/*****************************************//*****************************************/
+081112
+ctags solutions
+disable cscope (set nocst)
+add tags+=tags;/(uses any tags file from current directory down to root)
+when generating tags in recursive fashion do (ctags -R ./*), If you put an extension in this search criteria, no directories will be searched

@@ -1,0 +1,32 @@
+sh
+#
+# this script should probably only be run at run level 3
+#
+cd /etc
+PATH=/usr/bin:/bin:/usr/sbin
+case $1 in
+`start')
+   if [ -x /usr/local/samba/bin/smbd -a -f /etc/smb.conf ]; then
+      echo `Starting Samba...'
+      /usr/local/samba/bin/nmbd -D
+      /usr/local/samba/bin/smbd -D
+   fi
+   ;;
+`stop')
+   pid=`/bin/ps -x | egrep `(smbd|nmbd)' | sed -e `s/^  *//' -e 's/ .*//'`
+   if test "$pid"
+   then
+      kill $pid
+      rm /usr/local/samba/var/locks/smbd.pid
+      rm /usr/local/samba/var/locks/nmbd.pid
+   fi
+   ;;
+*)
+   echo "usage: /etc/init.d/samba {start|stop}"
+   ;;
+esac
+
+
+Multiple subnets/workgroups may require multiple samba.Demon's to be spawned. If computers on different workgroups, need to renounce (remote annonuce) on both workgroups (even if the same subnet). Then the computer appears faster (or is this lmhosts?).
+
+upstart the new initialisation system mimic system-V by running these and inserting new event driven initialisation scripts which are more flexible and don't have to rely on run levels.

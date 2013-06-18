@@ -1,0 +1,110 @@
+Command reference for customised Vim:
+
+g;	previous change
+g,	next change
+:changes list of changes
+%	jumping between parentheses
+{}	jumping paragraphs
+()	jumping sentences
+#G  jump to line #
+c-i follow jump
+c-o go back to previous jump
+:jumps list of joumps
+
+Q   gq} either of these formats paragraph
+
+ implicit motion commands: 
+A equivalent to $a (append to end of line)
+C equivalent to deleting at the end of line
+implicit commands can be great for combining into a single, and which can be treated with .
+Search for "bar', cutwith cw and replace with "foo", repeat with n. keys on each occurrence of "bar"
+
+:bn	next buffer
+:bp	previous buffer
+:ls 	list o and Oxon invoices was less than the f buffers
+
+c-f	all folds toggle
+	//f	toggle single fold
+c-g	toggle task list
+c-p	toggle tag list
+
+ctags -R <dir/>*	collect tag information
+:TlistAddFilesRecursive <directory> [pattern]
+:TlistSessionSave <filename>	
+c-L	mapped to :TlistSessionLoad vim_session (require saved session to be called "vim_session")
+a-L	mapped to :TlistSessionSave vim_session (require saved session to be called "vim_session")
+:tn	next tag
+:tp	previous tag
+
++	(tag list window) expand fold
+-	(tag list window) collapse fold
+*	(tag list window) expand all folds
+=	(tag list window) collapse all folds
+o	(tag list window) open a new split 
+u             Update the tags listed in the taglist window
+<space> " " prototype information for tags
+
+gt	switch to next tab in vim
+gT	switch to previous tab in vim
+#gt	switch to tab # in vim
+c<space> 	intellisense/auto complete
+c-]	jump to tag location for name 
+c-t	return from jump location 
+c-[hjkl] 	jump to tag list window (use vim Key mappings for direction)
+:q | c-q	close the current window section 
+:vsp	produce a vertical split of the current window 
+:sp	producer horizontal split of the current window
+
+c-s	suspend terminal output (flow control)
+c-q	resumed terminal output (flow control)
+
+s-L	navigate the end of window
+s-h	navigate the beginning of window
+
+R	execute current file (python)-just as the equivalent of the save and command line execute commands
+K	brings up Python documentation for keyword under cursor
+
+" Set key 'R' for run python code
+let g:pymode_run_key = 'R'
+" Key for show python documentation
+let g:pymode_doc_key = 'K'
+" Key for set/unset breakpoint
+let g:pymode_breakpoint_key = '<s-b>' "leader>b'
+("ctrl-space is short for rope auto complete)
+Q / gq}	format paragraph (voice macro already transferred)
+:bn	next buffer (creative it doesn't exist)
+:bp	previous buffer
+:bd	del buf
+:ls	list buf
+:edit <file>	open new buf
+
+:help	help, navigate with c-]/c-t
+
+"" vim pdb key mapping
+Ex Command	Key binding	Details
+:PDBNext	n	pdb (n)ext
+:PDBStep	s	pdb (s)tep
+:PDBArgs	a	pdb (a)rgs
+:PDBUp	u	pdb (u)p
+:PDBDown	d	pdb (d)own
+:PDBReturn	r	pdb (r)eturn
+:PDBContinue	c	pdb (c)ontinue
+:PDBBreak	b	Sets a breakpoint at the line on which the cursor is sitting; similar to pdb b(reak)
+:PDBClear	B	Clears a breakpoint at the line on which the cursor is sitting; similar to pdb cl(ear)
+:PDBWord	w	Evaluates the value of the identifier on which the cursor is sitting.
+:PDBEval	?	Evaluates a Python expression after having asked for it.
+:PDBReset	x	Switch back to normal debugging in shell with standard pdb.
+N/A	v(im)	Switch back to vimpdb; only in plain pdb.
+
+
+"" Rope key mapping
+================  ============================
+Key               Command
+================  ============================
+<C-Space>         |:RopeCodeAssist|
+<C-?>             |:RopeLuckyAssist|
+<C-c> g           |:RopeGotoDefinition|
+<C-c> d           |:RopeShowDoc|
+<C-c> f           |:RopeFindOccurrences|
+================  ============================
+roprevim.txt

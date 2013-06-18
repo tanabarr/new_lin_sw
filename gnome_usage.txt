@@ -1,0 +1,5 @@
+Earlier than 3, autostart applications within .config/autostart within home directory.
+.Desktop files
+
+ress Alt+F2 to bring up the Run dialog. Type gnome-session-properties. Click the "Add" button. In the resulting dialog box give the name of the program and the command to start it up (probably magick-rotation. Click add and close.
+__________________

@@ -1,0 +1,13 @@
+Mount bind said directories to public home directory. And entries to fstab.
+	Done, share, software, music, films, torrents. fstab mount permissions controlled by umask 001 four torrents, 002 for the rest (disallowing write for anyone not in the root group). Check permissions,
+create films share mount. Corrected use of umask (also found out specifying the mount type when binding directories is not necessary) use 0 for the share_BTX directory and 0222 for the others (prohibiting write permissions). Mounted NTFS partition sticks with permissions given on first mount, can't seem to adjust permission. When mount binding directories afterwards (can restrict permissions when creating Samba shares but not when binding to different directory locally).
+
+Transfer the autostart entries from .gnome/config... 2 init scripts (chkconfig?) So that things start without the graphical interface (deluge) if no monitor is attached.
+	Done: rc.Local edited to start bit torrent client daemon in case display problems (e.g. no monitor attached) stop gnome desktop from starting and initialising autostart applications.
+
+Change default shell for tom to vsh for auto complete auto select and automatic <to select an editor (in editor variable for user).
+	Key bindings changed to work skipping forward and backward words, searching history and deleting words. Backed up in software share for portability. Still start cursor at the beginning of history entries!
+
+Change lirc.conf to the old configuration (dpkg) in order to point to the right to map file (mceusb). Then irw should work.
+	Still doesn't work!
+

@@ -1,0 +1,6 @@
+Job control
+
+Jobs - finds current TTY jobs
+control Z- suspends current job, returns job number
+fg <job number> - resumes job number to foreground
+bg <job number> - resumes job number to background

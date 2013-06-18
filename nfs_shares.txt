@@ -1,0 +1,24 @@
+NFS_shares, how to set up NFS share directories
+sudo apt-get install nfs-common
+https://help.ubuntu.com/community/SettingUpNFSHowTo
+
+ sudo apt-get install nfs-kernel-server
+  559  sudo cp /etc/fstab /root/fstab_bak_130614
+  560  sudo vim /etc/fstab
+  561  sudo mkdir -p /export/phat
+  562  sudo chmod 777 /export/phat
+  563  history
+
+Fstab command:
+# mount --bind /home/users /export/users
+
+Make sure client and server share the same domain name in /etc/imapd.conf
+
+Add the following to/etc/exports.
+/export       192.168.1.0/24(rw,fsid=0,insecure,no_subtree_check,async)
+/export/users 192.168.1.0/24 (rw,nohide,insecure,no_subtree_check,async)
+
+Note, have not closed the portmap
+
+Restart the service
+ service nfs-kernel-server restart

@@ -1,0 +1,25 @@
+sudo nmblookup
+findsmb
+/etc/smb.conf
+wbinfo -N <NetBIOS name>
+traditional UNIX networking: /etc/host.conf, /etc/nsswitch.conf and /etc/resolv.conf.
+
+
+Troubleshooting local NetBIOS look up
+nsswitch order, net group nis? Can remove nis as this is not used on network. This file determines where services look for network services first. For each service, require libnss_<service name> library. Remove netgroup line. 
+nmblookup works
+winbindd needed?
+Want to be wins server but not to use dns proxy for the Look up
+
+Nmbd in charge of resolution, "NetBIOS name" and "NetBIOS alias" should be set in Samba config file. Wins all is very 
+Samba shares broken!
+
+Check resolv.conf, overwritten by Network Manager? nslookup tries to resolve using the name servers given in resolve.conf
+
+Can check wins database: /var/cache/samba/browse.DAT
+
+Starting with version 2.2.0, Samba has Linux support for extensions to the name service switch infrastructure so Linux clients will be able to obtain resolution of MS Windows NetBIOS names to IP addresses. To gain this functionality, Samba needs to be compiled with appropriate arguments to the make command (i.e., make nsswitch/libnss_wins.so). The resulting library should then be installed in the /lib directory, and the wins parameter needs to be added to the “hosts:” line in the /etc/nsswitch.conf file. At this point, it will be possible to ping any MS Windows machine by its NetBIOS machine name, as long as that machine is within the workgroup to which both the Samba machine and the MS Windows machine belong. 
+Check they are on the same workgroup!"
+
+SOLUTION:
+hostname is caps sensitive, winbind provides libnss_wins & libnss_winbind required to ping Windows systems using NetBIOS names from Linux.

@@ -1,0 +1,74 @@
+Changed -N .
+cdiff -N -b BUG_44_BRANCH
+
+## Before committing for the first time (which requires a password), need to have svn
+## store a password. This just requires you to try to commit using SVN instead of just sub
+svn ci (in the relevant directory)
+
+## once a password has been entered (common to be nothing or "password"), even if command fails
+## password will be stored and subsequent  sub commits will succeed. (Fails because no bugid
+## provided by default in svn and Mantis is looking for one in the description)
+## stored in ~/.subversion/auth sensitive stop
+Ci . /<filename>
+
+# Start a bug from another bug branch (creates the bug branch directory, don't use -s)
+sub sb -b 4316 4317
+> creating branch for bug 4316 from BUG_4317_BRANCH
+> committed revision 62316.
+> Committed revision 62317.
+> Error: unable to break down url:
+# check it out
+sub co -b 4316 BUG_4316_BRANCH
+
+sub commands make automatic entries into bugzilla.
+
+# Show the differences between the two revisions in the working copy
+sub diff -r 62316:62317 -b BUG_4316_BRANCH
+
+# show commits between the start of branch and the head (now)
+sub commits -b BUG_4317_BRANCH
+
+# Commit file (non-recursive)
+sub commit -N product/.../br..c
+> committed revision x
+
+# show the committed differences
+sub diff -r 62316:<x> -b BUG_4316_BRANCH
+
+# In order to find the revisions between which a file was changed:
+sub lg -f <file name> <path to a parent directory of file>
+# this will give you the details of changes, starting with revision number
+# then compare the two revision numbers with regard to a file path
+sub diff -r 57512:77400 <can specify tag or branch> <path to file> 
+
+
+## MERGING
+
+# to merge changes from the original branch a bug was made from in # its current state, into a bug branch:
+
+# from the directory of the bug, do:
+sub dm (development merge)
+
+# Once conflicts have been resolved, do:
+sub cm (commit merge)
+
+directories need to be up-to-date and fully committed before doing the above 
+
+
+## REVERTING
+
+# For example to revert to the origin of a branch to do a diff with the most recent version in order to see you all changes in the bug branch:
+# final revision of the origin of the branch
+sub origin <bug branch name>
+
+# Show differences
+sub diff -r 4284:4504 -b BUG_135_BRANCH 
+Mantis gives easier to read reflection of the revision changes than with rev_tree
+
+
+## SWITCHING
+
+# to switch current checkout to a different bug branch
+sub sw -b 212 (when inside current branch checkout)
+
+

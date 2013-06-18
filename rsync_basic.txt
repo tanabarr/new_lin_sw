@@ -1,0 +1,20 @@
+Either use Demon:
+example:
+
+I’ve now set up backups for me using the following crontab on ltedemo-pc
+
+# m h dom mon dow user  command
+0 9,12,15,18,21 * * *  rsync --archive --delete --password-file /home/aab/rsyncd.passwd rsync://backup@pvt1/home/aab/src/ /home/aab/pvt/pvt1-backup/
+
+To create your own copy or rsyncd.passwd do sudo cat /etc/rsyncd.secrets on either of the pvt machines to discover the backup user password
+
+Setup daemon using rsync.conf on remote system
+
+Or use passwordless ssh:
+crontab -e
+30 */4 * * * ./sched_backup
+make sched_backup executable by user
+and contain:
+rsync -avu --delete pvt2:/home/tan/src/ /home/tan/pvt/pvt2-backup/
+
+And make sure directories exist.

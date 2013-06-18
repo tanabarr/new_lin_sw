@@ -1,0 +1,11 @@
+Login as the root user
+
+Type the following command to install ntp
+# yum install ntp
+Turn on service
+# chkconfig ntpd on
+Synchronize the system clock with 0.pool.ntp.org server:
+# ntpdate pool.ntp.org
+Start the NTP:
+# /etc/init.d/ntpd start
+(Centos)

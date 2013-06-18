@@ -1,0 +1,15 @@
+rsyncd setup RH xinetd
+http://www.jtanderson.org/linux/centos-5-rsync-server-setup/
+
+after installing both rsync and xinetd
+check xinetd running and three, four, five in co.kconfig
+edit the file /etc/xinetd.d/rsync
+change permissions and restart xinetd.d as on the link above
+should now be able to telnet to 127.0.0.1 873
+
+if permissions changed for /etc/rsync.conf, may only be accessible to users with write access is
+to
+
+possible problems if application is not expecting a this to be run as xinetd
+changed back to standard sysv , script in init.d/ with correct permissions and ownership,chkconfig has name added for level 34 and 5
+then start service

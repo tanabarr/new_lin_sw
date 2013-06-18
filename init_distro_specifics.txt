@@ -1,0 +1,27 @@
+Red Hat use chkconfig (or systemd) (/sbin)
+Debian use sysv-rc-conf but now upstart job initialisation is preferred on Ubuntu
+use example "initctl emit <event>" for Ubuntu initialisation control
+
+To help reinforce the difference, consider how Upstart itself starts: See the Startup Process.
+
+It performs its internal initialization.
+Upstart itself emits a single event called startup(7). This event triggers the rest of the system to initialize. Note that there is no "startup" job (and hence no /etc/init/startup.conf file).
+init(8) runs the mountall job (as defined in /etc/init/mountall.conf) since the startup(7) event satisfies mountall(8)'s requirement: "start on startup".
+The mountall(8) job in turn emits a number of events (including local-filesystems(7) and all-swaps(7)). See upstart-events(7) for further details. As a thanks mate
+Upstart provides three different types of Events.
+(For mounting problem on BTX, examine fstab for delay option and also /etc/init/rc.Local to see when it is executed by upstart
+(arrange for correct upstart behaviour for both deluge{d,-web,} and x11vnc. Add unprivileged user to logon with automatically? And password for deluge)
+
+(Both as root)
+both now use the "service ... start/stop/restart" paradigm for processcontrol
+
+Generic ways to autostart Demons:
+
+To run a daemon or any command as root before login, add it to /etc/rc.local or add a cron job with @reboot as its time field. You can also write a proper init script based on /etc/init.d/skeleton.
+To run a command after login, add it to ~/.bash_profile (provided you're using bash). Contrary to ~/.bashrc, this file will be executed by login shells only.
+To run a command after login of any new user, add an appropriate .bash_profile to /etc/skel and new users will get this file automatically on account creation.
+
+
+initctrl COMMAND JOB
+
+Can list recognise jobs and perform basic control

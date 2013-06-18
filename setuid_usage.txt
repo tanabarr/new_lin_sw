@@ -1,0 +1,6 @@
+setuid UNIX access right flags to run program with elevated privileges temporarily
+set using the most significant octet of UNIX file permissions
+eg 6711 sets setuid & setgid and owner and group will be set to those who own whenever the executables run.
+
+Setuid&gid on directorie
+setgid causes new files in subdirectories created within its directory to inherit its group ID rather than that of the creating user

@@ -1,0 +1,2 @@
+When cannot connect via ssh due to strict checking
+run 'ssh-keygen -R hostname'on the client to clear up known hosts file

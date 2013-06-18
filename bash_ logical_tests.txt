@@ -1,0 +1,39 @@
+Tests (simple) in bash
+
+  0.000 MbpscaptureThroughput:    0.000 Mbps
+tan@pvt1:~$ T=""
+tan@pvt1:~$ T2=0
+tan@pvt1:~$ T3=13
+tan@pvt1:~$ [ $T != "" ] && echo yes || echo no
+-bash: [: !=: unary operator expected
+no
+tan@pvt1:~$ [ $T == "" ] && echo yes || echo no
+-bash: [: ==: unary operator expected
+no
+tan@pvt1:~$ [ $T -eq "" ] && echo yes || echo no
+-bash: [: -eq: unary operator expected
+no
+tan@pvt1:~$ [ "$T" -eq "" ] && echo yes || echo no
+-bash: [: : integer expression expected
+no
+tan@pvt1:~$ [ "$T" == "" ] && echo yes || echo no
+yes
+tan@pvt1:~$
+3" -lt 0 ] && echo yes || echo no
+[2] 6154
+-bash: [: missing `]'
+13: command not found
+[2]-  Exit 2                  [ "$T" == ""
+no
+tan@pvt1:~$ [ "$T" == "" && "$T3" -lt 0 ] && echo yes || echo no
+-bash: [: missing `]'
+no
+tan@pvt1:~$ sstop listening skills without over 1211 they did inside now more active dela^Cto hear Albertans me set[ "$T" -eq "" ] && echo yes || echo no
+tan@pvt1:~$ [ "$T" -lt "$T2" ] && echo yes || echo no
+-bash: [: : integer expression expected
+no
+tan@pvt1:~$ [ "$T2" -lt "$T2" ] && echo yes || echo no
+no
+tan@pvt1:~$ 2 to[ "$T2" -lt "$T
+
+Need to do test first for lack of a number, then equate value.

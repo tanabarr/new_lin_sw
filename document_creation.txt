@@ -1,0 +1,6 @@
+Text documentation in Linux
+
+main contenders:
+Latex
+DocBook XML (tag-based, multiple format output)
+textinfo( heavily related to above two)t

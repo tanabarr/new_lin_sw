@@ -1,0 +1,14 @@
+Let "$PROG" be a program that writes data to the standard output stream. Then:
+
+    Transfering without compression:
+
+    $PROG | ssh destination.ip.address 'cat > ~/file.txt'
+
+    Using gzip53 for compression:
+
+    $PROG | gzip -f | ssh destination.ip.address 'gunzip > ~/file.txt'
+
+    Better compression can usually be achieved by bzip254
+
+    $PROG | bzip2  | ssh destination.ip.address 'bunzip2 > ~/Scratch/file.txt'
+

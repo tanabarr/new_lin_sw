@@ -1,0 +1,24 @@
+TightVNC optimisation for remote use
+
+If using SSH obviously setup tunnelling and set keep alive under the connection tabs in options
+
+Use 8-bit colour encoding and custom compression level=7 under tightVNC options, JPEG compression quality=6 (but greyed out)
+
+For a LAN connection use 8-bit encoding and "raw" schema to avoid slow refresh issues.
+
+Vncserver walk-through on Red Hat related OS: http://wiki.centos.org/HowTos/VNC-Server
+
+
+
+Troubleshooting with pal(centos).
+Not automatically starting.
+Reinstall and re-setup vnc-server. Ensuring correct use of root.
+Add local host name to/etc/hosts.
+With check config, start only on run level 5
+
+Only starts using vncserver as user from shell
+(could put in .bashrc?) 
+Need to make sure no .vnc/*.pid before starting from bash shell.
+Not a fail proof technique.
+
+x11vnc -ncache 10 -display :0

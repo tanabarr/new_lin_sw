@@ -1,0 +1,3 @@
+Create Script
+Follow:
+http://seb.so/vnc-from-boot-without-logging-in-ubuntu-lubuntu-xubuntu-and-mint-lmde/

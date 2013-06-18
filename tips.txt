@@ -1,0 +1,3 @@
+svn getting started guide on the wiki
+
+sub script deals with merging from development branch to a bug branch or vice versa (have to be located in the checked out working directory of the destination, either a bug or development branch).

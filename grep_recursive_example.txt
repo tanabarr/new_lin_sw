@@ -1,0 +1,2 @@
+// recursive grep for pattern "TEST" anywhere within home directory "LTE" rgrep -e "TEST" ~/LTE
+ 

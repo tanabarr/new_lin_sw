@@ -1,0 +1,143 @@
+Is
+The first method is to remove the remote host from the ~/.ssh/known_hosts file. Note that the warning message already tells you the line number in the known_hosts file that corresponds to the target remote host. The offending line in the above example is line 3("Offending key in /home/peter/.ssh/known_hosts:3")
+
+You can use the following one liner to remove that one line (line 3) from the file.
+
+$ sed -i 3d ~/.ssh/known_hosts
+
+Sed is used for streams and works on a substitution basis, changing text etc
+Awk better for selection of fields in lines and worked on a filter and then action premise. For example the first part could filter which lines to process and the second to filter which fields within those lines.
+Tee splits the standard output of a process to file as well as piping to another reader (or other) process. For example ls -l |tee text.txt displays on standard output as well as piping to file
+
+
+This example illustrates removing lines matching a string. Notice that to match a ', use double quotes to contain the expression and\ is not needed to escape the ' within the expression.
+
+/*****************************************//*****************************************/
+ 1266  vim MymMainfile
+X 1267  sed -e '/"checkpoint"/d' MymMainfile |more
+ 1268  sed -e '/checkpoint/d' MymMainfile |more
+X 1269  sed -e '/Info(\'checkpoint/d' MymMainfile |more
+X 1270  sed -e "/Info(\'checkpoint/d" MymMainfile |more
+ 1271  sed -e "/Info('checkpoint/d" MymMainfile |more
+X 1272  sed -e "/Info(\'checkpoint/d" MymMainfile |more
+ 
+tom@pal:~/ltm$ sed -e "/Info('checkpoint/d" MymMainfile >MymMainfile_new
+tom@pal:~/ltm$ diff MymMainfile MymMainfile_new                                                                     36d35
+< Info('checkpoint 1')
+71d69
+< Info('checkpoint 2')
+79d76
+< Info('checkpoint 3')
+107d103
+< Info('checkpoint 4')
+121d116
+< Info('checkpoint 5')
+359d353
+< Info('checkpoint 6')
+388d381
+< Info('checkpoint 6a')
+442d434
+< Info('checkpoint 6b')
+446d437
+< Info('checkpoint 6c')
+516d506
+< Info('checkpoint 7')
+553d542
+< Info('checkpoint 8')
+
+/*****************************************//*****************************************/
+pp
+
+
+When removing blocks of code (e.g. within #if 0/#endif statement) specify beginning and ending as follows:
+sed -e '/#if 0/,/#endif/d' test_source > test_destination
+
+Can reverse this by printing lines within a block signified by beginning and endpoints using:
+sed -n -e '/:STAGE1/,/:STAGE2/p' name_list
+(-n negates the function and doesn't print by default)
+
+Substitution is:
+
+       s/regexp/replacement/
+              Attempt  to match regexp against the pattern space.  If success-
+              ful,  replace  that  portion  matched  with  replacement.    The
+              replacement may contain the special character & to refer to that
+              portion of the pattern space  which  matched,  and  the  special
+              escapes  \1  through  \9  to refer to the corresponding matching
+              sub-expressions in the regexp.
+
+/*****************************************//*****************************************/
+complex substitution, searching for specific terms
+
+cat Wedding_list_category_1.txt | sed -e 's/\([a-z]@[a-z]*\).*/\1/'
+expression within this substitution can be split up in terms of individual regular expressions e.g. *
+this expression finds any text up to a lowercase string after an @. It disregards the rest (.*) By replacing the regular expression with the first found pattern (that which is within brackets) '\1'.
+
+cat Wedding_list_category_1.txt | sed -e 's/\([A-Za-z][A-Za-z]*\).*/\1/'
+finds the first word in a line and prints, must be starting with alphabetic character.
+Excludes the rest of the line.
+
+The above command with a space in the second character definition: "[A-Za-z ]" prints a string with spaces.
+									   ^
+
+ cat Wedding_list_category_1.txt | sed -e "s/[A-Za-z][A-Za-z():,+0-9'_ ]*://g"
+This command replaces all strings terminated with a colon with nothing.
+
+ cat Wedding_list_category_1.txt | sed -e "s/[A-Za-z][A-Za-z():,+0-9'\'-\'_ ]*://g" -n -e '/[A-Za-z]/p'
+this command does the same but removes empty lines. 
+
+ cat Wedding_list_category_1.txt | sed -e 's/\([A-Za-z0-9]\)$/&:/'
+changes the line endings using sed. This works by finding a non-: character at the end of the line and replacing with the same with a: appended.
+
+/*****************************************//*****************************************/
+
+Can append one line to another using multi-line command:
+
+ sed '
+/$/ {
+N
+s/\n//
+}' cat_1.tmp
+
+/*****************************************//*****************************************/
+
+ cat Wedding_list_category_1.txt | sed -e "s/.*:\([A-Za-z0-9_.\'-\' ]*@[A-Za-z0-9_\'-\'. ]*\):/\1/" -n -e '/@/p' |sed -e 's/:.*//' | sed ';/$/ {; N; s/\n//; }'
+this command combines some of the previous ones. The substitution expression matches any whole line containing an e-mail address encapsulated in colons. It then captures the actual e-mail address part (in escaped brackets-'\(') and replaces the whole line for this "interesting" part. Any other lines (without a @symbol) are removed and the second pass ensures that there is no trailing characters.
+Then the multi-line command tries to concatenate addresses on a single line. Maybe have to repeat this multiple times.
+
+/*****************************************//*****************************************/
+
+  756  sed ';/$/ {; N; s/\n/, /; }' < Wedding_list_category_1.txt > temporary
+  757  echo $?
+  758  less temporary
+  759  sed ';/$/ {; N; s/\n/, /; }' <  temporary > temporary1
+  760  echo $?
+  761  less temporary1
+  762  sed ';/$/ {; N; s/\n/, /; }' <  temporary1 > temporary
+  763  echo $?
+  764  less temporary
+  765  sed ';/$/ {; N; s/\n/, /; }' <  temporary > temporary1
+  766  echo $?
+  767  less temporary1
+  768  sed ';/$/ {; N; s/\n/, /; }' <  temporary1 > temporary
+  769  echo $?
+  770  less temporary
+  771  sed ';/$/ {; N; s/\n/, /; }' <  temporary > temporary1
+  772  echo $?
+  773  less temporary1
+  774  sed ';/$/ {; N; s/\n/, /; }' <  temporary1 > temporary
+  775  echo $?
+  776  less temporary
+  777  sed ';/$/ {; N; s/\n/, /; }' <  temporary > temporary1
+  778  echo $?
+  779  less temporary1
+  780  sed ';/$/ {; N; s/\n/, /; }' <  temporary1 > temporary
+ 
+after the e-mail addresses have been extracted, to format on a single line as a CSV, using multi-line command, return value of SED is not dependent on changes so need to test if I'll still has new line characters. Do this in a while loop in a script, there must be a better way.
+Maybe using awk is better?
+
+/*****************************************//*****************************************/
+
+
+ sed -e "/:CATEGORY_1:/,/:CATEGORY_2:/ s/\(:[A-Za-z0\' ]*@[A-Za-z0-9_\'-\'. ]*:\)/&sent_addrreq_email:/" < name_list_3 > name_list_4
+This command processes only a subsection of the file (between the two category labels) and substitutes any e-mail address with the e-mail address and a appended tag "sent_addrreq_email".

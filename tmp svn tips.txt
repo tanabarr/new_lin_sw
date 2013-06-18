@@ -1,0 +1,11 @@
+mkdir	 created a directory and marks for addition at the next commit, alternative is to mark a pre-existing folder for addition and then commit.
+$ ls
+Makefile      foo.c      m1a1in.c      zot.c
+$ svn copy --revision 7 file:///path/to/repos/trunk/baz.c baz.c
+A      baz.c
+$ svn commit -m "resurrect baz.c from the repository"
+Adding         baz.c
+Committed revision 10.
+$
+
+OK, so what happened here? You just copied baz.c as it existed in revision 7 (the last revision before you deleted it) directly from the repository into your working copy. Then you committed the change, and the process of restoring the deleted file completed. 

@@ -1,0 +1,5 @@
+Linux libraries that exist to help with concurrency
+
+pThreads
+openMP
+QtConcurrent

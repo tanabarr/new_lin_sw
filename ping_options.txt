@@ -1,0 +1,3 @@
+-f flood, interval specified stops maximum speed (dots indicate dropped packets)
+-l preload, number of packets to send without waiting for reply.
+-R prints recorded route, not always supported

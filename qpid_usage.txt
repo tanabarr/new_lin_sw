@@ -1,0 +1,89 @@
+Cool qpid_use
+
+start using /init.d as usual
+/usr/ local/qaid../tools/src/py/qpid-config queues
+
+needed to kill process lt_qpidd first
+(mysql started in a similar way if needed)
+
+how to delete and flush all messages in a queue:
+
+in order to delete a queue, a simple command can suffice to delete and flush all messages
+this requires certain information options for the queue
+need to examine the queue using the config tool above, the following properties have the resultant effects:
+-exclusivity, one session can own the queue once created, cannot be deleted until session is closed
+-durable, queue remains in memory over restart of qpid
+-auto-delete, queue is deleted when all subscribers have unsubscribed
+-and there are also various flags which may affect the ability to remove and flush
+
+programming with Apache Qpid has more information to do with dynamic creation and deletion of queues
+
+/*****************************************//*****************************************/
+testing best method to remove all the queues within qpid is:
+
+run the daemon which creates messages etc, possibly a representative system test (manySusr…)
+Test timing to kill, see the process disappear and then restart and be ready for messages
+
+check for timing facilities within the code rather than reinventing the wheel
+
+examine queue properties using :
+
+/*****************************************//*****************************************/
+"1.. qpid-stat -q gives statistics for a queue 
+
+2. In qpid-tool, first do a 'list queue' to get the OID of the queue, 
+then do a 'show <OID>'. The property 'msgDepth' tells you how many 
+messages are on the queue. See screen output below my signature. 
+
+qpid: list queue 
+Object Summary: 
+     ID   Created   Destroyed  Index 
+=========================================== switch to sell to ============================= 
+     123  14:33:09  -          135.qmfc-v2-hb-localhost.localdomain.16162.1 
+     124  14:33:09  -          135.qmfc-v2-localhost.localdomain.16162.1 
+     125  14:33:09  -          135.qmfc-v2-ui-localhost.localdomain.16162.1 
+     126  14:33:09  -          135.reply-localhost.localdomain.16162.1 
+     127  14:33:09  -          135.topic-localhost.localdomain.16162.1 
+
+
+
+qpid: show 123 
+Object of type: 
+org.apache.qpid.broker:queue:_data(3a30c319-5ef2-f211-ba1f-4900d5f75435) 
+     Attribute              123 
+     ================================================================= 
+     vhostRef               135 
+     name                   qmfc-v2-hb-localhost.localdomain.16162.1 
+     durable                False 
+     autoDelete             True 
+     exclusive              True 
+     arguments              {u'qpid.policy_type': u'ring'} 
+     altExchange            162 
+     msgTotalEnqueues       0 
+     msgTotalDequeues       0 
+     msgTxnEnqueues         0 
+     msgTxnDequeues         0 
+     msgPersistEnqueues     0 
+     msgPersistDequeues     0 
+     msgDepth               0 
+"
+/*****************************************//*****************************************/
+
+
+once the OID has been obtained as above, can do ' qpid-tool call <QID> purge 0'.
+May need to ensure that no subscribers are still alive (anything uses or creates a queue).
+
+Can directly use qpid-config --force del queue <q_name>
+(config tool may be slightly slower than tool?)
+
+If you want to find rows in the table with only a single column:
+	if len(row.split())==1:
+
+qcmds=["qpid-config --force del queue {0}".format(qname) for qname in [line.split() For line in conn.before.split('\n')] if len(qname)==1]
+for cmd in qcmds:
+send line
+do prompt
+if conn.before != '':
+	log error
+
+tool seems not to be very well documented, try Qmf-tool

@@ -1,0 +1,2 @@
+Can use this command to search for exact package names 
+apt-cache search MySQLdb

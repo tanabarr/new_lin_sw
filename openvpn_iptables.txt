@@ -1,0 +1,55 @@
+Between Windows and Linux on a simple vpnConfiguration
+
+Depending on the iptables configuration, may be required to add rule
+for example when using blockcontrol filters, need to put rule in one of the sub chains
+to allow traffic to be returned into the input chain and accepted.
+
+
+tom@BTX:~]$ sudo  iptables -I blockcontrol_in 4 -i tun+ -j RETURN               
+                                                                                 (02-24 16:43)
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination
+blockcontrol_in  all  --  anywhere             anywhere            state NEW mark match !0x14
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination
+blockcontrol_fw  all  --  anywhere             anywhere            state NEW mark match !0x14
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+blockcontrol_out  all  --  anywhere             anywhere            state NEW mark match !0x14
+
+Chain blockcontrol_fw (1 references)
+target     prot opt source               destination
+DROP       all  --  anywhere             anywhere            mark match 0xa
+RETURN     all  --  anywhere             google-public-dns-b.google.com
+RETURN     all  --  anywhere             google-public-dns-a.google.com
+RETURN     all  --  192.168.1.0/24       192.168.1.0/24
+NFQUEUE    all  --  anywhere             anywhere            NFQUEUE num 92
+
+Chain blockcontrol_in (1 references)
+target     prot opt source               destination
+DROP       all  --  anywhere             anywhere            mark match 0xa
+RETURN     all  --  anywhere             anywhere
+RETURN     all  --  192.168.1.0/24       anywhere
+RETURN     all  --  anywhere             anywhere
+NFQUEUE    all  --  anywhere             anywhere            NFQUEUE num 92
+
+Chain blockcontrol_out (1 references)
+target     prot opt source               destination
+REJECT     all  --  anywhere             anywhere            mark match 0xa reject-with icmp-port-unreachable
+RETURN     all  --  anywhere             anywhere
+RETURN     all  --  anywhere             google-public-dns-b.google.com
+RETURN     all  --  anywhere             google-public-dns-a.google.com
+RETURN     all  --  anywhere             192.168.1.0/24
+RETURN     tcp  --  anywhere             anywhere            tcp dpt:https
+RETURN     tcp  --  anywhere             anywhere            tcp dpt:www
+NFQUEUE    all  --  anywhere             anywhere            NFQUEUE num 92
+[tom@BTX:~]$ sudo iptables -S blockcontrol_in                                                                                         (02-24 16:44)
+-N blockcontrol_in
+-A blockcontrol_in -m mark --mark 0xa -j DROP
+-A blockcontrol_in -i lo -j RETURN
+-A blockcontrol_in -s 192.168.1.0/24 -j RETURN
+-A blockcontrol_in -i tun+ -j RETURN
+-A blockcontrol_in -j NFQUEUE --queue-num 92
+[tom@BTX:~]$                                          

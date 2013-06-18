@@ -1,0 +1,19 @@
+Tunnelling vnc with putty
+
+In configuration, access connection,ssh,tunnel
+
+Local port is the port and that we will connect our local vnc viewer client to (this is the port the SSH session will loopback its traffic to, obviously the session itself is initiated between a random source port on the local system and port 22 on the destination/server).
+The destination is the connection target on the remote LAN (from the perspective of the remote system). Whatever the remote system can connect to e.g. a local area connection private IP and port 5901 vnc can be forwarded over the SSH session to be specified loopback localhost port.
+
+Note: 59XX ports are usually for vnc client sessions, 58XX for embedded Java Web console sessions
+
+E.g. source port 5950, destination 192.168.1.200::5901
+and then click the add button (with the radio button underneath destination set to local). This should forward the remote desktop server output on private lan through the system running SSH server acting as Gateway for the local area network, through the ssh session to the client to be loopbacked to port 5950. Running VMC viewer on port localhost::5950 should work.
+
+Nested tunnelling should work.
+
+The radio buttons for forwarding at the top of the options screen ("local ports accept connections from other hosts& remote ports do the same") allow for the other hosts to tunnel through this SSh connection.
+
+
+Nested tunnelling sample:
+tunnel connected between laptop and btx with ports forwarded to "pal" on BTX LAN. Forward another port with source port 2222 (local host) and destination pal:22 (performed in putty client on laptop). Can then open winScp or putty on laptop to connect to pal using host: localhost and port:2222. Can copy files directly from laptop to any on remote LAN

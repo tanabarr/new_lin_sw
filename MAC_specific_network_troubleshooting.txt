@@ -1,0 +1,13 @@
+* Flush the DNS cache – Launch the Terminal and enter the following command onto one full line within the Terminal:
+dscacheutil -flushcache
+Mac Wireless Connection Problem Troubleshooting: Advanced
+
+* Zap the PRAM – Reboot your Mac and hold Command+Option+P+R during restart until you hear another chime, let the Mac boot as usual.
+
+* Delete Wireless Config files – Delete com.apple.internetconfigpriv.plist and com.apple.internetconfig.plist files from ~/Library/Preferences and reboot
+
+* Trash your home directories SystemConfiguration – Remove all files within ~/Library/Preferences/SystemConfiguration/ and then reboot your Mac.
+
+* Reset your Mac’s System Management Controller (SMC) – For MacBook and MacBook Pro’s: Shutdown the MacBook/Pro, remove the battery, disconnect the power, hold the Power Key for 15 seconds. Replace the battery, reconnect power, and zap the PRAM and wait for 2 chimes before letting the keys go. Let boot as usual.
+
+Many of these tips are from our fixing dropped wireless airport connection problems in Snow Leopard18 article.

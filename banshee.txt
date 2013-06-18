@@ -1,0 +1,5 @@
+lirmcd.conf (/etc/lirc/)
+used to map buttons to actions with mouse
+.lircrc (~/)
+used to map lirc events (button presses) to shell actions
+this requires irexec to be running. at boot.

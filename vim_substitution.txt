@@ -1,0 +1,44 @@
+REGEX / SUBSTITUTION
+/*****************************************//*****************************************/
+
+:%s/[A-Z,a-z]\n/?:\n/gc
+replaces any line ending with a colon 
+
+:%s/[^:]\n/?:\n/gc
+this is better, replacing with \n line ending isn't sufficient.
+
+:%s/\([^:]\)\n/&:\r/gc
+this is attempting to replace a line ending with its current value and: appended, need to somehow save the ending without the new line character
+& refers to previous match, ^ references NOT
+
+ cat Wedding_list_category_1.txt | sed -e 's/\([A-Za-z0-]\)$/&:/'
+does the equivalent to using sed. This works by finding a non-: character at the end of the line and replacing with the same with a: appended.
+
+:g/... can be used like sed
+
+:%s/task\.Task_status  =  \(.*\)/Self.Change_state(task, \1)/gc
+first '\' escapes special meaning of '. 'In search expression,
+second and third '\''s escapes brackets that select the first "area of interest"
+in the search expression. ".*" Inside the area for interest highlights of the rest of
+the line. The first area of interest is then placed into the replacement text with "\1".
+/*****************************************//*****************************************/
+SEARCHING
+/*****************************************//*****************************************/
+doing shift+8 searches for a specific string within the file, can iterate with 'n'.
+/*****************************************//*****************************************/
+NON-GREEDY REGEX
+/*****************************************//*****************************************/
+[=:]\S[^:]*\)[:\n]
+this matches each component of an environmental variable assignment EG. In bash_profile
+:s/\/\([^:]*)bin:/\/\1sbin:\/\1bin:/g
+this replaces all bin directories within path in bash_profile with the bin and sbin counterparts (sbin first in order of precedence) as is the case with most root PATH variables.
+
+non-greedy useful to know in vim because standard  regex "*?" With? Suffix to stand for non-greedy match doesn't seem to work 
+this approach above matches zero or more "non-:" characters rather than zero or more "any" characters 
+the first line in this section matches ": or equal followed by a non-space character and any number of non-colon characters until a: and \n"
+(there is a missing escaped bracket) 
+/*****************************************//*****************************************/
+find and copy
+/*****************************************//*****************************************/
+scp host:`ssh host find base_dir -name file  |grep base_dir_expanded` destination_location
+(host, base_*, file and destination_location are all input variables)

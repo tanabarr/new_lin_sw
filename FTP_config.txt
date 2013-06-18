@@ -1,0 +1,46 @@
+Whereis vsftpd	
+chkconfig vsftpd
+files in /var/ftp/pub (to allow board anonymous access)
+(first two commands check it is installed and run automatically on system start-up)
+configuration file:
+/etc/vsftpd/vsftpd.conf
+session_support=OFF 
+
+Debian anonymous FTP tips:
+use a vsftpd.conf similar to that at the following site:
+http://ubuntuforums.org/archive/index.php/t-91887.html
+anon_chroot parameter is important, must point to a NON-WRITABLE root for anonymous users.
+
+It seems that there are various possibilities for anonymous login credentials including client specific settings (e.g. anonymous checkbox, I don't know what this actually sends to the server), the user "anonymous" or "". Passwords can include "", any arbitrary string e.g. e-mail address or "guest".
+
+A specific criteria for anonymous users is that the anon_chroot directory that is the root for the anonymous user is non-writable. I.e. owned by different user to that of the anonymous FTP (ftp user for vsftpd). This does mean that the anonymous users cannot create directories or write files to the root anonymous directory. They can however to a subdirectory of this root directory (/var/ftp/pub in my case).
+
+In the case where my anon_root=/var/ftp and there is a subdirectory "pub" within this directory then the following configuration applied the necessary permissions:
+
+(As root)
+chown -R ftp /var/ftp
+chgrp -R ftp /var/ftp
+chmod -R 755 /var/ftp
+chown root /var/ftp
+
+This should remove the "vsftpd: refusing to run with writable anonymous root" error.
+
+
+Example steps:
+
+sudo apt-get install vsftpd
+	this will also create ftp user and group. On my Ubuntu setup this didn't create home directory.
+
+The following steps setup alternative user home directory, autostart, edit the config, create a backup file of the config and restart the Deamon.
+   51  usermod -d /var/ftp ftp
+   52  sysv-rc-conf --list
+   53  sysv-rc-conf vsftpd on
+   55  cp /etc/vsftpd.conf /etc/vsftpd.conf.bak
+   54  vim /etc/vsftpd.conf
+   56  service vsftpd  restart 	
+
+Note: if using graphical FTP client, don't forget to refresh, gets me every time.
+
+
+After deciding I didn't want anonymous uploading, I changed the chown parameter in the config to ftpsecure, another user with a password. I set chroot_local and disabled others users from FTP by adding them to /etc/ftpusers. I then added some symbolic links to the home directory of ftpsecure. This seemed to offer the right balance of security that I needed. I enabled chroot_local_user and disabled chroot_list_unable. Disabled anonymous_enable etc. Until deemed necessary later.
+Remember to keep group and owner permissions of all contents of ftpsecure to itself otherwise may get problems trying to edit etc over FTP.

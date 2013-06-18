@@ -1,0 +1,5 @@
+When doing a file test over a remote ssh command, send in embedded quotes. Have to escape these when sending over ssh: ssh "[ -f \"$name_file\" ...
+if multiple commands in ssh command string: ... ;...;... , Redirection should apply to last command if enclosed".
+To avoid complication with concatenating variables, use curly brackets to enclose the name of variable e.g. ${NAME} or separate with a/e.g. $NAME/$NAME2 (reads "contents_of_name/contents_of_name2").
+
+/And & have special meanings within vim replace commands (:%s/.../.../gc) and need to be escaped

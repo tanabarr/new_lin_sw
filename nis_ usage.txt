@@ -1,0 +1,4 @@
+sudo ypbind	# now in rc.local
+rpcinfo -p localhost
+ypcat passwd
+sudo yppasswd tan

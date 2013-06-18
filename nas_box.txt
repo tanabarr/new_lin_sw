@@ -1,0 +1,16 @@
+NAS box set up
+logged onto port 80, changed admin password and enabled FTP on web console
+enabled Samba share on custom smb.conf (browsable=yes) although not sure if this will get overwritten by ipstor software.
+Trying to mount Samba drive on Linux (can just create standard nfs share to transfer files in Linux? Avoid Samba overhead).
+Need to mount using type smbfs ("sudo mount -t smbfs -o username=tom,password=??? //NAS/tom /media/baxter")
+it gets error about superblock and file type, search for file system helper: ("ls /sbin/mount*"), if this doesn't contain smbfs install it (sudo sudo apt-get install smbfs). This gives ability to mount using cifs or smbfs filesystem types.
+Can check Samba shares on network ("smbclient -L NAS").
+File permissions and ownership seem messed up for Samba directory when mounted using:
+"//192.168.1.191/tom /media/baxter smbfs username=tom,password=??? 0 0" appended to/etc/nfstab
+
+Use "//192.168.1.191/homes /media/baxter smbfs rw,user,sync,auto,uid=tom,gid=tom,username=tom,password=siemens 0 0"
+instead
+
+Get error when moving or copying to mount; "accessing '/media/baxter': host is down"
+
+See NFS_shares for how to set up these

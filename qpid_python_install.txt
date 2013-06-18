@@ -1,0 +1,8 @@
+Installing qpid 
+
+qpid-0.12
+extract the zip
+run the respective script in the directory pertaining to your chosen implementation language e.g. p e.g.
+in this case setup.Py
+
+this creates the python version of qpid available from the site-packages directory in your current python version.

@@ -1,0 +1,6 @@
+To redirect to file stderr/out both do: 1>> file.txt 2>&1 (order is important)
+can use exec to do this for the whole script
+
+to redirect stdout to file with elevated permissions, have to use sudo sh -c "echo 'text' > /file.txt"
+to avoid the issue of changing permissions of a builtin (which is what trying to use sudo to elevate the permissions of a shell implicit redirection action is)
+we need to execute in a subshell)

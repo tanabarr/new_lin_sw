@@ -1,0 +1,29 @@
+Common usage:
+rpm -ivh <package name>
+install with verbose information and progress bar
+
+rpm -e…
+Removes package
+
+rpm -Uvh …
+Upgrade package (use instead of-i, makes more sense, upgrades or installs)
+
+rpm -q…
+Adding i: gives information of specific package
+adding a: searches all packages that have been installed, can be used to grep
+adding p: queries a specific package, not necessarily installed
+adding l: gives list of package files
+adding c: gives list of package configurations files
+adding f<file>: queries the file for the package owner
+adding d: gives documentation for a package
+
+q — Perform a query.
+
+d — List all documentation files.
+
+c — List all config files.
+
+f — Query the package that owns the specified file (/sbin/dump, in this case).
+
+
+Adding--scripts: gives all the related scripts used to install the package

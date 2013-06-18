@@ -1,0 +1,6 @@
+Object dump usage 
+
+-a	archive headers	(basic object information, lists architecture of objects)
+-f	file headers (summary), D_PAGED means the result of a linker?
+-h	section headers (individual section header detail)
+-i	information of architecture and object formats available

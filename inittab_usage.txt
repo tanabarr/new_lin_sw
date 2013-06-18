@@ -1,0 +1,7 @@
+inittab
+format is:
+identifier: run level: action: command
+run levels when not specified (… ::…) Refers to all run levels
+action process receives the command
+initdefault directive specifies initial run level (as the init daemon runs the first time, it starts in this run level, does not proceed through from lowest run level)
+chitab/lsitab/mkitab/rm... tools for modifying this file

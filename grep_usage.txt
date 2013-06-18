@@ -1,0 +1,13 @@
+
+[root@itw8016390 ~]# grep -r IPADDR=192.168.153.1 /etc/*
+
+Search for string in files...
+
+Egrep (extended expressions?)
+-n prefixes with line number
+
+// recursive grep for pattern "TEST" anywhere within home directory "LTE" rgrep -e "TEST" ~/LTE
+ 
+regular expression typically work on individual characters.
+
+"-v" option negates the operation of grep

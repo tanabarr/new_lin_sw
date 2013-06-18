@@ -1,0 +1,1 @@
+Command line tool is u1sdtool, mainly for controlling daemon

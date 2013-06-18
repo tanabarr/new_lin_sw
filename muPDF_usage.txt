@@ -1,0 +1,8 @@
+Using Mu PDF
+
+MuPDF is a more keyboard friendly PDF reader than Adobe Acrobat reader.
+The Adobe product is more flash/air based and therefore doesn't respond as easily to keyboard control. It is geared towards point-and-click type usage and the voice recognition "say what you see" paradigm doesn't work quite so well.
+Very simple program which doesn't seem to crash or have unexpected results, exactly what you need when trying to control with voice recognition.
+</> Do page up/down 10 pages, very useful for quickly browsing through documents. can use m/t as in vim for Mark/trace back to previous mark, can also use a list of 10 marks e.g. m[0-9]/t[0-9].
+
+One less frustrating program to deal with.

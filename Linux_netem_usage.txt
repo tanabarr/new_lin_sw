@@ -1,0 +1,63 @@
+netem basic operations
+(most operations can be configured with percentage of occurance/value variation and/or correlation)
+
+Delay 
+
+Loss
+
+Corruption
+
+Reordering
+
+Misordering 
+
+
+
+Examples:
+
+
+
+
+[tom@fede ~]$ ping 109.207.30.40
+PING 109.207.30.40 (109.207.30.40) 56(84) bytes of data.
+64 bytes from 109.207.30.40: icmp_seq=1 ttl=64 time=1001 ms
+64 bytes from 109.207.30.40: icmp_seq=2 ttl=64 time=1.54 ms
+64 bytes from 109.207.30.40: icmp_seq=3 ttl=64 time=0.432 ms
+64 bytes from 109.207.30.40: icmp_seq=4 ttl=64 time=0.257 ms
+64 bytes from 109.207.30.40: icmp_seq=5 ttl=64 time=0.428 ms
+64 bytes from 109.207.30.40: icmp_seq=6 ttl=64 time=0.256 ms
+^C
+--- 109.207.30.40 ping statistics ---
+6 packets transmitted, 6 received, 0% packet loss, time 5285ms
+rtt min/avg/max/mdev = 0.256/167.399/1001.482/373.013 ms, pipe 2
+[tom@fede ~]$ tc qdisc add dev eth1 root netem delay 100ms
+RTNETLINK answers: Operation not permitted
+[tom@fede ~]$ sudo tc qdisc add dev eth1 root netem delay 100ms
+[sudo] password for tom:
+[tom@fede ~]$ ping 109.207.30.40
+PING 109.207.30.40 (109.207.30.40) 56(84) bytes of data.
+64 bytes from 109.207.30.40: icmp_seq=1 ttl=64 time=100 ms
+64 bytes from 109.207.30.40: icmp_seq=2 ttl=64 time=100 ms
+64 bytes from 109.207.30.40: icmp_seq=3 ttl=64 time=100 ms
+64 bytes from 109.207.30.40: icmp_seq=4 ttl=64 time=100 ms
+
+
+Htb root device seems to yield marginally slower round-trip time
+it should be noted that with a fifo, packets are not reordered
+with high values of packet delay variation.
+Rates control can only be achieved using token bucket filters.
+
+sudo tc qdisc add dev eth1 root handle 1 htb
+<changes root device on this interface to a htb>
+
+sudo tc qdisc del dev eth1 root
+<reverts root device back to fast fifo>
+
+Can setup a root device and then apply filters subsequently:
+
+sudo tc qdisc add dev eth1 root handle 1 htb
+
+sudo 
+
+Example from http://www.linuxfoundation.org/collaborate/workgroups/networking/netem
+for rates control does not work, operation not supported error

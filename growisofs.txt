@@ -1,0 +1,15 @@
+growisofs can be used to burn a DVD
+
+Need to know device name of DVD drive
+
+growisofs -Z /dev/dvd -R -J /some/files
+
+To append:
+
+growisofs -M /dev/dvd -R -J /some/files
+
+(/Dev/dvd is just a symbolic link to reference the right device e.g./dev/hdc)
+DVD drive can be mounted only as read-only in the normal fashion.
+
+Has to be done as root, notsudo 
+if the disc has been written to in Windows, may not work. Need to be blank.

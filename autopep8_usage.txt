@@ -1,0 +1,14 @@
+Can check differences between files (before and after changes) --diff
+can check the changes to be made: --list-changes
+can make the changes in place to the file: -i
+
+Configuration of settings can to configure errors is on the README in github for the python mode plug-in
+
+Mappings of function in .vimrc
+
+Had to fix link to python 2.6 (hack)
+reinstall autopep8 (for Python 2.7 installation)
+now "autopep8 correct" grammar works
+
+Then run diffsaved command as specified in vimrc
+can ignore any strange errors with line in the vimrc

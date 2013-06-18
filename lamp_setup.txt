@@ -1,0 +1,19 @@
+https://help.ubuntu.com/community/ApacheMySQLPHP (setup)
+https://help.ubuntu.com/community/MysqlPasswordReset (password reset for mysql)
+http://ubuntuforums.org/showthread.php?t=804021 (ERROR 2002 hy000 with mysql)
+(just required restart and then to start mysql automatically)
+
+added users mysql
+root (test)
+tan@192.168.1.196 (siemens)
+tom (siemens)
+
+/*****************************************//*****************************************/
+http://blog.adlibre.org/2011/01/11/how-to-install-and-setup-a-python-django-development-environment-on-windows-7/
+
+djangoae-pythond-mysql install python-setuptools
+easy_install virtualenv
+easy_install virtualenvwrapper
+once virtualenv set up correctly and project directory/environment setup:
+install pip and django inside the virtual environment (directory has its own environment,bin directory etc) setup with command "mkvirtualenv --no-site-packages <new project directory>"
+where bash script has created environmental variable workon_home directory for the project and run the virtualenv script to create an environment. The new project directory is in the virtual environment projects directory

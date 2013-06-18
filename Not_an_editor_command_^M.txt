@@ -1,0 +1,31 @@
+ setting fileformat="dos", will write files as dos files with
+> <CR><NL>?
+>
+> Yes
+>
+> > 2) If I wanted to have the files written as unix files with the EOL as
+> just
+> > <NL>, fileformat should be "unix".
+>
+> Yes
+>
+> > 3) is there an easy way I can convert a file within vim from <CR><NL> to
+> > <NL>
+>
+> If you have a file opened in "dos" mode, and you want to save it as unix
+> mode,
+> do "set fileformat=unix" and then save the file.
+>
+> You should read the VIM help on "fileformat" and "fileformats".  Basically,
+> you
+> should set your fileformats variable to "dos,unix".  If the fileformats
+> variable
+> is set, vim will try to perform automatic detection of the file type based
+> on
+> the first CR/NL/CRNL in the file.
+>
+> I think that fileformats is set properly by default in the standard VIM
+> distribution, however i tweak my config pretty heavily, so i'm not fully
+> sure
+> about this.
+>

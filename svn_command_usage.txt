@@ -1,0 +1,24 @@
+svn commands
+
+svn co svn://...
+svn add <path to file to add, must ready being correct directory of checked repository>
+svn status 	(shows the status of files in the directory-?/M/a, -u option compares remote repository the working copy to the )
+svn commit -m 'this is my comment'	(in the case that the -m option is omitted, text editor is opened.Sub script prepends the bug number to the comment)
+svn diff <file to analyse>	(shows the difference between current and previous versions of a file, +/-syntax used to refer to differences in working copy and previous revision respectively)
+svn update	(updates the working copy from the remote repository, local changes are overwritten)
+svn mv/cp/del	(modifies files in working copy, after using these commands use commit to write them to remote repository, must be an update working copy)
+svn import -m 'initial import' . svn://< desired repository location>	(Creator repository from the files in the current directory)
+mkdir	 created a directory and marks for addition at the next commit, alternative is to mark a pre-existing folder for addition and then commit.
+$ ls
+Makefile      foo.c      m1a1in.c      zot.c
+$ svn copy --revision 7 file:///path/to/repos/trunk/baz.c baz.c
+A      baz.c
+$ svn commit -m "resurrect baz.c from the repository"
+Adding         baz.c
+Committed revision 10.
+$
+
+OK, so what happened here? You just copied baz.c as it existed in revision 7 (the last revision before you deleted it) directly from the repository into your working copy. Then you committed the change, and the process of restoring the deleted file completed. 
+
+tag is a copy of a revision in a specific tag directory to represent a specific stage of development
+Branch is the same but to be modified for experimental purposes to be merged into the main branch later

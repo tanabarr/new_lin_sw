@@ -1,0 +1,46 @@
+Uses the tex metalanguage
+sample taken from:
+http://www.gnu.org/software/texinfo/manual/texinfo/html_node/Short-Sample-Texinfo-File.html#Short-Sample-Texinfo-File
+
+Example of how to compile from source:
+
+  889  makeinfo.exe exm.texi
+  890  texi2pdf --help
+  891  texi2pdf --tidy exm.texi
+  892  makeinfo.exe --html exm.texi
+
+TAN@ITW92620 ~/documentation/exemplar
+$ ls
+exm.pdf  exm.t2d  exm.texi  sample  sample.info
+
+Commands create the previous listing (pdf and temporary file directory t2d, the source texi file, HTML directory and info file.
+
+Source file modified for each document, replace names as required.
+
+Use @include <filename including extension>, to include plain text contents (could also include TeX directives etc) in a section.
+
+Pay attention to indexing, referencing for example, after directives like @cindex,@node @chapter
+
+Useful commands:
+@…
+quotation (on its own line,end with @end quotation)
+noindent (affects the next in line)
+paragraphindent none (globally disables indenting, put this just before the end of header)
+xref
+url
+
+@enumerate < number or letter to start with.>
+@item
+…
+@item
+…
+@end enumerate
+
+@itemize is the same as above but with bullets
+
+Makeinfo pointer creation (automates creation of node pointers in document)
+-- NO need to include next, previous and top pointers on node lines, these are automatically done by makeinfo as long as it's formatted correctly
+--our menus created as well?
+
+@Headings
+http://www.gnu.org/software/texinfo/manual/texinfo/html_node/Custom-Headings.html#Custom-Headings

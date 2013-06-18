@@ -1,0 +1,14 @@
+http://www.youtube.com/watch?v=3jEuR4Nvv3s
+also by command line precentor MouseGrid seven four
+server 2012 on desktop, install through GUI
+set up remote access for virtual box
+
+Remote display virtual box VM server 2012, port 3900
+
+Virtualisation in hardware required for 64-bit hosts,  vT-x (virtualisation technology required in BIOS) also vT needs to be enabled in virtual box as well as it not being used by something else e.g. KVM or some other virtualisation tool. AOPI is to be enabled, the error detail was  VERR_VMX_MSR_locked_or_disabled  Https://forums.virtualbox.org/viewtopic.php?f=4&t=18685
+
+Problem solved via cold boot (remove ac power for 30 seconds)
+install up-to-date version of virtual box (4.2.10)
+start from terminal on desktop usingsudo 
+don't forget OaOPI and vt-x
+can select 2012 64-bit

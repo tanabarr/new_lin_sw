@@ -1,0 +1,21 @@
+screen bash
+
+Then can join the same session using screen -x
+
+Can communicate over the same session
+
+screen -R reattach/create a new
+<control key> commands:
+n-next
+p-previous
+c-create
+d-detach
+
+Can use naming for screens and sessions
+
+S-create split screen
+TAb-switch between split screens
+Q-kill regions but the current
+X-remove active windows from split
+
+Commissioning form

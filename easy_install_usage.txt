@@ -1,0 +1,11 @@
+Easy_install
+
+if you only want to run locally and not download anything, use --allow-hosts
+
+EasyInstall tries to install packages in zipped form, if it can. Zipping packages can improve Python’s overall import performance if you’re not using the --multi-version option, because Python processes zipfile entries on sys.path much faster than it does directories.
+
+As of version 0.5a9, EasyInstall analyzes packages to determine whether they can be safely installed as a zipfile, and then acts on its 
+
+--always-unzip will always unzip the files in the egg on installation, otherwise it will determine whether it's safe to leave the zipped egg.
+
+easy_install -m… To remove a package (have to delete egg files and config files after including site-packages)

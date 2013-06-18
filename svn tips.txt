@@ -1,0 +1,30 @@
+SVN information
+
+
+you have to login to svn, the password is "password" - assuming that you have 
+an LI account (if not, charlie should be able to create one).
+
+toroise will work - there are people who use it.  However, there are a few 
+things to bear in mind:
+
+1) we use a commandline wrapper for svn called sub that we use for all 
+branching and merging tasks
+2) every checkin must be against a bug in bugzilla, and every bug has it's own 
+branch, this means that the first line of every checkin is "Bug: <bugno>", 
+except that merges have two bug numbers.  it's possible that tortoise will 
+have a field for the bug number in the top right - I can't remember if that 
+is setup as I don't use it myself, if it does then it will add the 
+appropriate line to the front of the provided commit comment.
+
+The basic procedure for work is:
+ a) create bug in bugzilla
+ b) create bug branch using sub from appropriate dev branch (a dev branch is a 
+branch that relates to a feature development as opposed to a single piece of 
+work - nothing is done directly on dev branches they are just places for 
+combining individual pieces of work together)
+ c) devlop code on bug branch with the bug no in all checkin comments (btw sub 
+add the bug line to the commit message for you)
+ d) tag the branch as complete (this doesn't mean that no more work can be 
+done on the branch - just that the work that has been done is ready to be 
+shared)
+ e) merge the bug branch to dev branch

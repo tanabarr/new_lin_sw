@@ -1,0 +1,3 @@
+For unresponsive mounted filesystem, can use umount -f (force, for use with an NFS file system not responsive) or -l (lazy, cleanup references when not busy but detach now)
+
+Unattaching an reattaching device to virtual machine may help, check device names haven't changed.

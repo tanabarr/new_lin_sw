@@ -1,0 +1,6 @@
+Surround plug-in allows for detection of surrounding characters
+
+Can use commands like selecting text within quotes, brackets
+these operating visual mode
+without going into visual mode you can use <ci"> for example
+vimspeak can be fantastic for using navigation and selection facilities of vim

@@ -1,0 +1,24 @@
+iptables -I OUTPUT -d <IP_destination> -p icmp --icmp-type port-unreachable -j DROP
+
+Drops ports unreachable IC MP messages
+
+
+Adding rule to accept vnc traffic in firewall (using Red Hat standard firewall configurations-custom input chain).
+
+
+ 1055  sudo iptables -A OUTPUT -p all --dport 5900:5999 -j ACCEPT
+ 1056  sudo iptables -A OUTPUT -p tcp --dport 5900:5999 -j ACCEPT
+ 1057  sudo iptables -L
+ 1058  sudo iptables -A RH-Firewall-1-INPUT -p tcp --dport 5900:5999 -j ACCEPT
+ 1059  sudo iptables -L
+ 1060  sudo service iptables stop
+ 1061  sudo  service iptables start
+ 1062  sudo iptables -L
+ 1063  man iptables
+ 1064  sudo iptables -I RH-Firewall-1-INPUT -p tcp --dport 5900:5999 -j ACCEPT
+ 1065  sudo iptables -L
+ 1066  history
+tom@pal:~$ sudo service iptables save
+Saving firewall rules to /etc/sysconfig/iptables:          [  OK  ]
+
+(stopping and starting refreshes IP tables configurations and flushes the initial changes).

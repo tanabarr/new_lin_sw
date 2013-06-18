@@ -1,0 +1,95 @@
+Information sourced from GCC manual
+
+-L directories are searched in order
+-aux-info filename (outputs function information to the given file) 
+options for linking and targets page 86-97
+environmental variables page 169
+library functions page 180
+cross compiler problems page 337
+
+Can check manually by building object files (tile-gcc -c -o ltm_main.o ../ltm_main.c)
+and then linking: (tile-g++ -o ltm *.o)
+
+Will obviously need relevant compiler flags for include directories etc.
+
+-i<search for headers here first>
+
+Vendor specific header files should be included in directories:
+    ould.
+
+
+-isystem dir
+the Search dir for header files, after all directories specified by `-I' but before the standard system directories. Mark it as a system directory, so that it gets the same special treatment as applied to the standard system directories. 
+
+    then the linker is not run, and object file names should not be used as arguments. See section 3.2 Options Controlling the Kind of Output218.
+
+-llibrary
+-l library
+    Search the library named library when linking. (The second alternative with the library as a separate argument is only for POSIX compliance and is not recommended.)
+
+    It makes a difference where in the command you write this option; the linker searches and processes libraries and object files in the order they are specified. Thus, `foo.o -lz bar.o' searches library `z' after file `foo.o' but before `bar.o'. If `bar.o' refers to functions in `z', those functions may not be loaded.
+
+    The linker searches a standard list of directories for the library, which is actually a file named `liblibrary.a'. The linker then uses this file as if it had been specified precisely by name.
+
+    The directories searched include several standard system directories plus any that you specify with `-L'.
+
+    Normally the files found this way are library files--archive files whose members are object files. The linker handles an archive file by scanning through it for members which define symbols that have so far been referenced but not defined. But if the file that is found is an ordinary object file, it is linked in the usual fashion. The only difference between using an `-l' option and specifying a file name is that `-l' surrounds library with `lib' and `.a' and searches several directories.
+
+
+These options specify directories to search for header files, for libraries and for parts of the compiler:
+
+-Idir
+    Add the directory dir to the head of the list of directories to be searched for header files. This can be used to override a system header file, substituting your own version, since these directories are searched before the system header file directories. However, you should not use this option to add directories that contain vendor-supplied system header files (use `-isystem' for that). If you use more than one `-I' option, the directories are scanned in left-to-right order; the standard system directories come after.
+
+    If a standard system include directory, or a directory specified with `-isystem', is also specified with `-I', the `-I' option will be ignored. The directory will still be searched but as a system directory at its normal position in the system include chain. This is to ensure that GCC's procedure to fix buggy system headers and the ordering for the include_next directive are not inadvertently changed. If you really need to change the search order for system directories, use the `-nostdinc' and/or `-isystem' options.
+
+-I-
+    Any directories you specify with `-I' options before the `-I-' option are searched only for the case of `#include "file"'; they are not searched for `#include <file>'.
+
+    If additional directories are specified with `-I' options after the `-I-', these directories are searched for all `#include' directives. (Ordinarily all `-I' directories are used this way.)
+
+    In addition, the `-I-' option inhibits the use of the current directory (where the current input file came from) as the first search directory for `#include "file"'. There is no way to override this effect of `-I-'. With `-I.' you can specify searching the directory which was current when the compiler was invoked. That is not exactly the same as what the preprocessor does by default, but it is often satisfactory.
+
+    `-I-' does not inhibit the use of the standard system directories for header files. Thus, `-I-' and `-nostdinc' are independent.
+
+-Ldir
+    Add directory dir to the list of directories to be searched for `-l'.
+
+-Bprefix
+    This option specifies where to find the executables, libraries, include files, and data files of the compiler itself.
+
+    The compiler driver program runs one or more of the subprograms `cpp', `cc1', `as' and `ld'. It tries prefix as a prefix for each program it tries to run, both with and without `machine/version/' (see   bcxs bv 5rtttttttttttttttttttttttttttttttttttttttttttttttttt
+
+/*****************************************//*****************************************/
+
+Default header search directories (include path)
+/usr/local/include
+/usr/include
+
+...libraries (link path)
+/usr/{local/,}lib
+
+/Usr/local/... take precedence over /usr/... directories (searched first)
+extend search path using compiler options -I and -L for include/library search path's respectively
+
+Never place absolute paths of header files in include statements in source code, prevents portability.
+-I option or the "INCLUDE_PATH" variables are the correct way to do it.
+
+Environment variables to contain search directory extensions for GCC can be set in .bash_profile.
+C_INCLUDE_PATH for C programs (compiled with gcc executable)
+CPLUS_INCLUDE_PATH for C++ programs (compiled with g++ executable)
+LIBRARY_PATH
+don't forget to export environmental variables to make available to programs outside the current shell 
+in terms of precedence, the order is command line directories specified with a flag (-I/-L), environmental variable specified directories and then standard default directories (local first)
+-l<lib name> will search the library in the extended search path, probably looking for a .a extension archive file
+
+Search directory extensions delimited with : in environmental variables, delimited with individual command line flags on the command line.
+
+Static libraries  (.a), when linked space against, have machine code from the object files for any external functions used by the program are copied from library to the final executable.
+Shared libraries (.so) perform dynamic linking, function table providing the identities of external functions in the libraries that the program requires (instead of the entire machine code of these functions). Just before runtime, machine code of external used functions is copied to from shared library file on disk. Makes file smaller and save disk space because library can be shared between multiple programs. Virtual memory mechanism can be employed by OS to allow single shared library in physical memory to be used by all running programs to save memory.
+
+Gcc prefers shared libraries over static when searching in search path
+when running, loader searches shared library in the default search directories for libraries. The loader is responsible for loading shared libraries into memory and the loader search path can be extended using the LD_LIBRARY_PATH environmental variable
+systemwide environmental variables settings: /etc/profile and loader configuration file /etc/ld.so.conf
+static linking can be forced using-static option
+remember that when linking with shared libraries, shared library needs to be accessible through the library load path as well as the library path.

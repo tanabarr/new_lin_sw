@@ -1,0 +1,13 @@
+:vert diffsplit <file>
+
+You can jump between the changes with [c to go to the previous change, and ]c for the next.
+dp	pushes changes on given line
+do	pulls changes on given line
+
+String macro created for string> ":vert diffsplit " differential split
+
+vidiff
+with the new.vimrc and auto pep8
+:%diffpu
+pushes changes from current buffer to target
+found in vim diff section

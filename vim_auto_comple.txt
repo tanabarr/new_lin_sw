@@ -1,0 +1,13 @@
+omnicppcomplete set up
+as per Les Harris's blog post: http://blogs.gnome.org/lharris/2008/07/20/code-completion-with-vim-7/
+
+Edited .vimrc file to automatically update tags in current directory
+provided key map to update tags without closing session (C-f6)
+add a tags file from home user directory containing tags of/usr/include directory
+add a small function to execute auto complete on "tab" key.
+
+Extract script contents to ~/.vim/
+
+Auto complete works on objects and pointers. Doesn't really work on anonymous class objects.
+
+

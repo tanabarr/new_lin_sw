@@ -1,0 +1,16 @@
+sudo apt-get remove python2.6
+(not a particularly good idea because gdm will hang)
+(we'll all site packages so setuptools etc will need to be reinstalled)
+deluge also removed plus web client
+
+do-release-upgrade to "precise" distribution (12?)
+see Ubuntu_upgrade_to_precise_12.txt
+conflict with my.cnf (just need to add bind-address=192.168.1.199)
+import locale failure multiple times on installation
+
+/*****************************************//*****************************************/
+obtain the sources for python2.7: (don't need as 2.7 is default for precise Ubuntu 12	)
+sudo add-apt-repository ppa:fkrull/deadsnakes
+sudo apt-get update
+sudo apt-get install python2.7
+

@@ -1,0 +1,53 @@
+Command reference for customised Vim:
+
+F	all folds toggle
+f	toggle single fold
+c-g	toggle task list
+c-p	toggle tag list
+ctags -R <dir/>*	collect tag information
+:TlistAddFilesRecursive <directory> [pattern]
+:TlistSessionSave <filename>	
++	(tag list window) expand fold
+-	(tag list window) collapse fold
+*	(tag list window) expand all folds
+=	(tag list window) collapse all folds
+o	(tag list window) open a new split 
+u             Update the tags listed in the taglist window
+<space> " " prototype information for tags
+gt	switch to next tab in vim
+gT	switch to previous tab in vim
+#gt	switch to tab # in vim
+tab	intellisense/auto complete
+c-]	jump to tag location for name 
+c-t	return from jump location 
+c-w w	jump to tag list window (or use arrow keys as second "W")
+c-q	close the current window section 
+:vsp	produce a vertical split of the current window 
+:sp	producer horizontal split of the current window
+c-s	suspend terminal output (flow control)
+c-q	resumed terminal output (flow control)
+c-L	mapped to :TlistSessionLoad vim_session (require saved session to be called "vim_session")
+a-L	mapped to :TlistSessionSave vim_session (require saved session to be called "vim_session")
+s-L	navigate the end of window
+s-h	navigate the beginning of window
+:tn	next tag
+:tp
+S-e	execute current file (python)-just as the equivalent of the save and command line execute commands
+
+219 " Set key 'R' for run python code
+220 let g:pymode_run_key = 'R'
+221
+222 " Key for show python documentation
+223 let g:pymode_doc_key = 'K'
+224
+225 " Key for set/unset breakpoint
+226 let g:pymode_breakpoint_key = '<s-b>' "leader>b'
+227
+228  "ctrl-space is short for rope auto complete
+229
+230 " Easy window navigation
+231 map <C-h> <C-w>h
+232 map <C-j> <C-w>j
+233 map <C-k> <C-w>k
+234 map <C-l> <C-w>l
+
