@@ -1,0 +1,282 @@
+Development system
+
+/etc/sysconfig/network-scripts/ifcfg-eth0 configured with net mask, Gateway, network, broadcast,ipaddr,usrctl,bootproto directives configured
+
+/etc/sysconfig/network configured with hostname
+
+Kernel-devel package installed
+
+Should add /sbin/ to path variable in bash rc
+
+Set date and time:
+  211  sudo  date -s 11/28/2011 +%D
+  215  sudo  date -s 00:18:00 +%T
+
+Build script for USB driver can't find source code in /lib directory, install kernel headers
+
+Move kiratool and psetup (Intel baseboard management binaries) to /usr/local/bin, change permissions for all users to be able to execute (chmod 755...)
+
+(psetup is graphical and kiratool doesn't seem to want to work locally)
+
+Setup vnc: install vnc-server, set user, password using vncpasswd, edit the file/etc/sysconfig/vncservers, start and stop vncservice using "service vncserver start/stop"
+edit the file ~/.vnc/xstartup
+
+Firewall stops connection by default, service iptables stop enables Java web interface (connect to http://192.168.1.5801). Setup at boot using chkconfig.
+
+Create router port forwarding for 5801 to local IP address for external vnc access.
+
+When trying to get a ipmi lan connection to RMM (IP address192.168.1.12) enable admin rights on user, connect with no username on ipmitool enable password authentication for admin rights.
+/*****************************************//*****************************************/ 
+
+Either need to build solely on CMS development system or install build system on standalone Tilera development system.
+Mym requires mym version > 0.6, cleversheep version > 0.2.3, python 2.4 
+
+HTML documentation under tests directory is also on li wiki
+newbuilds on LI use a setup script for the common tools (on the Cronus share "software" under common tools). These packages are contained in/software/common tools/packages.
+
+Testing for the LTM is contained within the test directory: test/process/probe/flip/ look up...
+readme file is very useful
+
+/*****************************************//*****************************************/
+Installed python from source tarball version 2.4.4../configure, make and then after changing to root, make install. python2.4 binary now globally accessible.
+Similar methods install cleversheep & Mym
+cleversheep:
+tar zxvf ${TOOLS}/CleverSheep/dist/CleverSheep-0.3.3.tar.gz
+cd CleverSheep-0.3.3
+python2.4 setup.py install --force
+cd /tmp
+rm -rf CleverSheep-0.3.3
+
+Mym:
+same as above in directory with the python command.
+
+
+__________
+even with these tools installed, Mymmainfile gets confused because of missing infrastructure?? How to extract a barebones build?
+
+> Unable to determine version, using !dev
+> cgcc_li: command not found
+
+Cgcc_li is in the cms common_tools mounted directory (unfortunately not in the common_tools default installation packages).
+
+/*****************************************//*****************************************
+
+When installing packages and transferring, don't use winscp or something else that strips permissions.
+Attached USB key to virtual machine and copy directly via Linux filesystems. Incomplete files may halt scp process with error "file exists". File permissions may be corrupted and file inaccessible.
+Mount common tools directory from local storage system if not enough space.
+
+Take the same directory structure as the mounted "common_tools" including symbolic links ("cp -prL…") With the scripts to set up environmental variables and the x86_64 directory structure.
+
+sudo sh -c "cp -Lr x86_64/* /media/usb_ key/Linux/common_tools_mount/x86_64/"
+
+Also copy the test directory from LI trunk for reference (only need a few directories from there)
+
+/*****************************************//*****************************************/
+
+/*****************************************//*****************************************/
+product/probe/flip/lookupTableManager
+>mym clean
+>mym debug=1 --show-progress
+
+Builds fine on trunk, builds okay on standalone directory apart from svn errors
+(no "BINFO" description between linking and install descriptions at end of build output -mym)
+
+test/Process/probe/flip/lookupTableManager
+>mym clean
+>mym debug=1 --show-progress
+
+Neither builds, build time errors in jdp_stub.c (missing definition for data type: Timeout_entry). A fixed on revision 77400, replaced with data type Timeout_id.
+
+Trunk builds correctly. Test directory contains readme of how to configure mym build and environment to run test correctly.
+
+Standalone directory still doesn't do mym because of the following error:
+
+I wonder if you could help, I'm trying to resolve the build error: ...PyLibs/Mymfile", line 98, in makePyLibSet	makeShared (progName=alias)
+ERROR: 	File "..../test/PyLibs/Mymfile", line 61, in makeShared	SharedLib (shLibName, libOrProg.Srcs, SHLIB_SUBDIR= "", UseFullLibPath=1)
+ERROR: 	The exception raised was – AttributeError: ‘NoneType’object has no attribute ‘Srcs’.
+
+Could this be a dependency I am missing, any idea what I should look for?
+I'm executing from test/Process/probe/flip/lookupTableManager.
+
+/*****************************************//*****************************************/
+
+111213:
+	for stand-alone system, transfer the entire common_tools mount as well as source (including for example product/common/include/common.h). Transfer complete tools& common& libraries to satisfy majority of generic dependencies.
+
+111214:
+	fixed system date (ntp setup), decrypted and extracted MDE 4 beta. Run install_tile_dir to extract the tiles directory, Modified
+environmental variable export in initialisation script (.bash_profile) in order to point to beta version of MDE.  LTM full repository successfully transferred
+(installation instructions in getting started/release notes documentation)
+
+120104:
+	when compiling with mym error with finding python 2.6 library:
+
+"[tom@pal ltm]$ mym clean
+WARNING: Unable to get Subversion information from /home/tom/ltm/MymMainfile.
+WARNING: Subversion output:
+svn: error while loading shared libraries: libsvn_client-1.so.0: cannot open shared object file: No such file or directory
+WARNING: Unable to determine version, using !dev
+ERROR: Failed to get buildinfo:
+  python2.6: error while loading shared libraries: libpython2.6.so.1.0: cannot open shared object file: No such file or directory
+[tom@pal ltm]$ "
+
+When copying files, hidden ".PROJECT_ROOT" file was forgotten, causing script errors.
+This also occurred with the ".version" file in the project root.
+
+Error occurs within MymMainfile in the project root within function "
+# Regenerate buildinfo file every time we build.
+SetupBuildInfo()
+"
+
+The trunk/build/bi script executes in python2.6 as the shebang dictates (when spawned as a subprocess). I hadn't realised the build system used 2.6 as well as 2.4.
+Solution is to fix the symbolic links and file permissions under/common_tools/x86_64.
+2.7 GB, can be burned to DVD. Doesn't include/common_tools/generic which may be required.
+
+Removed buildinfo and net_snmp include mymfiles from ~ltm/support/Mymfile. Not needed apparently.
+
+Commented out the creation of the "LI shared library" in file "~/ltm/test/PyLibs/Mymfile"
+in order to avoid the following errors:
+
+"
+ERROR: At line 284 in '../../../../../test/PyLibs/Mymfile'
+ERROR: Called from line 3 in '../../../../../test/Mymfile'
+ERROR: Called from line 567 in '../../../../../MymMainfile'
+ERROR: The exception raised was - AttributeError: 'NoneType' object has no attribute 'Srcs'
+tom@pal:~/ltm/test/Process/probe/flip/lookupTableManager$ vim ../../.*/
+"
+This may be solved with a more complete/common_tools/directory.
+
+Currently get the following messages and still require more of the/common_tools directory:
+"stop listening any more DVDs key chase
+Bad alias! netsnmp
+Bad alias! netsnmpmibs
+Bad alias! netsnmphelpers
+Bad alias! netsnmpagent
+Bad alias! netsnmpmibs
+Bad alias! netsnmphelpers
+Bad alias! netsnmp
+Bad alias! netsnmpagent
+Bad alias! netsnmpmibs
+Bad alias! netsnmphelpers
+Bad alias! netsnmp
+Bad alias! li
+Bad alias! li
+  GEN product/common/include/common.h
+Command Failed
+
+Make[1]: Entering directory `/home/tom/ltm/product/common/include'
+perl xml-msg-process.pl common limpit.xml common.h
+Can't locate XML/Parser.pm in @INC (@INC contains: /common_tools/x86_64/centos-5/lib64/perl5/vendor_perl/5.8.8/x86_64-linux-thread-multi /common_tools/x86_64/centos-5/lib64/perl5/site_perl/5.8.8/x86_64-linux-thread-multi /usr/lib64/perl5/site_perl/5.8.8/x86_64-linux-thread-multi /usr/lib/perl5/site_perl/5.8.8 /usr/lib/perl5/site_perl /usr/lib64/perl5/vendor_perl/5.8.8/x86_64-linux-thread-multi /usr/lib/perl5/vendor_perl/5.8.8 /usr/lib/perl5/vendor_perl /usr/lib64/perl5/5.8.8/x86_64-linux-thread-multi /usr/lib/perl5/5.8.8 .) at xml-msg-process.pl line 27.
+BEGIN failed--compilation aborted at xml-msg-process.pl line 27.
+Make[1]: Leaving directory `/home/tom/ltm/product/common/include'
+ERROR: Failed to build product/common/include/common.h, return code = -2
+  CLEAN directory product/common/include
+Build Complete"
+
+
+
+
+120105
+	use large removable drives for required LI mounts e.g. traffic, common_tools and software.
+Only/software/netsnmp/net-snmp-5.5.tar.bz2 required for LTM test build from software mount.
+x86_64 directory copied from the common_tools mount directory on a DVD.
+and all the others from /Common_tools/ directory as well as /software/netsnmp and /traffic copied on separate USB drive ~1.8GB.
+
+120109
+	error when searching for XML/Parser.pm, should be located in user library. (Same error to "can't locate XML/Parser.pm...")
+solution is to do "yum install perl-XML-Parser" as root.
+
+	Error when importing cElementTree module, needs to be installed as a Python module.:
+tom@pal:/tmp/cElementTree-1.0.5-20051216$ sudo python setup.py install
+[sudo] password for tom:
+running install
+running build
+running build_ext
+running install_lib
+copying build/lib.linux-x86_64-2.4/cElementTree.so -> /usr/local/lib/python2.4/site-packages
+source for this package found under /opt/common_tools
+
+	Error when including:
+In file included from /usr/include/features.h:352,
+                 from /usr/include/stdio.h:28,
+                 from test/Process/probe/flip/lookupTableManager/tdm_stub.c:29:
+/usr/include/gnu/stubs.h:7:27: error: gnu/stubs-32.h: No such file or directory
+
+solution is to install glibc-devel when developing programs using the standard C libraries:
+yum -y install glibc-devel
+
+Possible problem with cyclical importing of cElementTree? Possibly remove site packages under 64-bit (lib64)
+
+
+120110
+
+You are a line and a little you you you you you are are are are are you are in	Solution was that cElementTree is a c implementation (with performance improvements) of the elementtree class. It's not a replacement of this class and requires elementtree in addition to provide full functionality. Installed from /opt/common_tools/packages using "python setup.py install".
+
+Can check members of class when imported in interpreter using dir(cElementTree), should contain 'parse'. help(cElementTree) should show version 1.0.5 (same as print(cElementTree.VERSION)).
+
+	Error with missing /usr/include/openssl/sha.h. Solution was to install required package: "openssl-devel".
+
+	Error with -lz library "skipping incompatible...". Solution required installing package: "zlib-devel".
+
+Builds correctly ~ltm/support/Mymfile include support for net-snmp re-enabled. Now only "li" bad alias from missing "buildinfo" incl. In ~ltm/support/Mymfile. 
+
+
+120125
+	problem with creating display. 
+Local monitor not displaying correctly, troubleshooting included a power cycle on the server and monitor boot into BIOS. Auto login enabled for user (Tom) chkconfig check for vncserver, when checked using PS utility,X11vnc process should be running. Initial vnc seems not to be running. Possible problem with IP tables, shutdown service using "sudo service iptables stop". Start instance of vncserver, this starts a new display :2. Now the should work on LAN
+	proper solution requires chkconfig vncserver levels to be active on three, four, five. This is so that user can have auto log in and create display before vnc tries to share. Changed the vnc password to user password. Check what run levels are in Centos. Even with the following steps correctly, still not starting up correctly.
+	When adding ./vncserver to bash_profile, Need to make sure no .vnc/*.pid exist before starting from bash shell.
+Not a fail proof technique. Tunnel connection through putty.
+
+
+	When building LTM test, as in the readme, ensure traffic mount is in the right place and TRAFFIC_DIR environment var set to the base of this location. Ensure correct file structure.
+Adjust permissions on the files as well as /usr/share/configs/ltm_config (file and directory writable by others).
+
+	Add environmental variable settings and vncserver to bash_profile.
+
+	When executing test harness, blank xterm. Make sure /var/log/limpit he's writable by user. And then message is not getting through as before. Configs/default.py seem to be okay?? Can't run mym config because wx is unknown module.
+
+120126
+
+	Installed from /opt/common_tools/packages/wxPython-src-2.8.4.0.tar.bz2, problems with building and installing. Read more!
+
+	When checking default.py, realised mistake: PSEUDO_MESSAGE_PROCESSING should be PSEUDO_PROCESS_MESSAGING Under build options. Shouldn't now need to fix wxpython .
+
+	Error: "
+patch: **** Can't open patch file /software/netsnmp/r17795.patch : No such file or directory
+ERROR: Failed to patch net-snmp
+tom@pal:~/test_ltm$ egrep -R "r17795.patch" ~/ltm/
+/home/tom/ltm/support/net-snmp/net-snmp/.svn/text-base/Mymfile.svn-base:    if os.system("patch -p1 --quiet -i /software/netsnmp/r17795.patch") != 0:
+/home/tom/ltm/support/net-snmp/net-snmp/Mymfile:    if os.system("patch -p1 --quiet -i /software/netsnmp/r17795.patch") != 0:
+"	comment out this patch command in /home/tom/ltm/support/net-snmp/net-snmp/Mymfile. Then replace later the correct patch.
+
+	Wrong PCap in traffic directory! Test_ltm.c is trying to read /traffic/trunk/fasttrack/ProfileA.cap, which doesn't exist. Change this address to /traffic/trunk/gtp/gtpProfile1.cap and it tries to read but doesn't match the correct number of packets and fails the test as expected. The correct capture files copied across and works as expected.
+
+	PASSES all tests!
+
+120131
+	documenting porting tasks including modification to build files for cross compilation and defeaturing (removal of ATM related code) to software_porting.txt.
+
+	When transferring files and preservation of ownership/group of files is not possible and prevent the transfer of file use "cp -Rd --preserve=mode,timestamps,links" rather than -a which implies -dR --preserve=all.
+-n indicates no clobber/overwrite and should be useful
+
+	Ltm project root and build directories configured with symbolic links pointing to active files for MymMainfile and master_config files respectively.
+
+120202
+	vnc process keeps disappearing? 
+tar files before transferring them on Linux-Linux machines using winScp.
+	Building from trunk base still results in error within common_tools (asn1c-v611)
+
+120207
+	when spawning x11vnc from bash_profile, put in to background. (Should also silence output).
+
+
+130620
+	vim and screen installed, ifconfig <if> <addr> <netm>
+centos6.4. useraadd tom -m,visudo… follow instructions about network system config settings at the top of this document.
+.vim, rc's for both vim and bash
+file format I need editing, does pathogen only work with vim 7.3
+exuberant ctags needed installing and in the process, gcc, make
+sudo make install (required root privileges)
+
+valgrind

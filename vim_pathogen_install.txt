@@ -3,4 +3,6 @@ call pathogen#infect() in vimrc
 extract all plug-ins into .vim/bundles (in individual directories)
 does pythonmode provide tasklist functionality
 
-requiresvim 7.3 to work
+requiresvim 7.3 to work??
+290613
+	seems to work on 7.2

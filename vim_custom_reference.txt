@@ -108,3 +108,12 @@ Key               Command
 <C-c> f           |:RopeFindOccurrences|
 ================  ============================
 roprevim.txt
+
+/*****************************************//*****************************************/
+SCREEN commands 
+scrollback buffer mode c-[
+scrollback commands:
+/-search forward
+?-search back
+space-bar-start/endOxon copy
+c-]-paste from the scrollback buffer

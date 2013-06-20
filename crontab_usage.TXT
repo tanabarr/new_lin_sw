@@ -1,0 +1,15 @@
+# m h  dom mon dow   command
+0 04 * * * ipmitool -H 192.168.1.10 -U tan -P test chassis power off
+
+~
+~
+
+/*****************************************//*****************************************/
+cron backup tasks updated 290513
+/etc/crontab used to schedule tasks (systemwide and used for system administration)
+backup script moved to /usr/local/backup/
+owned by root
+credentials stored and owned by root, sensible access/permissions
+locations updated in script, credentials moved to root directory with restrictive permissions
+fstab updated to take into account the new location of credentials
+run every two hours (temporary) then four
