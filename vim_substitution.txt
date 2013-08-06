@@ -42,3 +42,6 @@ find and copy
 /*****************************************//*****************************************/
 scp host:`ssh host find base_dir -name file  |grep base_dir_expanded` destination_location
 (host, base_*, file and destination_location are all input variables)
+
+changing from play string macros to dragonfly key macros:
+:s/(\(.\+'\).*/Key(\1),/gc
