@@ -44,4 +44,11 @@ scp host:`ssh host find base_dir -name file  |grep base_dir_expanded` destinatio
 (host, base_*, file and destination_location are all input variables)
 
 changing from play string macros to dragonfly key macros:
-:s/(\(.\+'\).*/Key(\1),/gc
+:s/(\('.*'\).*/Key(\1),/gc
+removing double entry lines:
+:s/),\s/),\r\t\t\t\t/gc
+( ignores line endings with "),")
+
+? After pattern makes it non-greedy, U appended as modifier also makes it non-greedy.
+
+{} create repeated matches
