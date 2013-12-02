@@ -52,3 +52,6 @@ removing double entry lines:
 ? After pattern makes it non-greedy, U appended as modifier also makes it non-greedy.
 
 {} create repeated matches:3,20s/^\(\S\+\)$/\1 - -/gc <replacing single character with something else>
+
+/*****************************************//*****************************************/
+changing dragonfly to natlink: macrosv
