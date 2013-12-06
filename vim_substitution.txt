@@ -37,6 +37,15 @@ non-greedy useful to know in vim because standard  regex "*?" With? Suffix to st
 this approach above matches zero or more "non-:" characters rather than zero or more "any" characters 
 the first line in this section matches ": or equal followed by a non-space character and any number of non-colon characters until a: and \n"
 (there is a missing escaped bracket) 
+
+Solution:
+
+instead of .* use .\{-}.
+
+%s/style=".\{-}"//g
+
+Also, see :help non-greedy
+
 /*****************************************//*****************************************/
 find and copy
 /*****************************************//*****************************************/
@@ -55,3 +64,9 @@ removing double entry lines:
 
 /*****************************************//*****************************************/
 changing dragonfly to natlink: macrosv
+
+%S/}\(.\{-}\)\([{;]\+[^;]\)/…/gc
+replacing the contents between pairs of braces was quoted strings
+
+/}[^"].*;/
+matches things between two characters, greater than zero length, without the specified character.
