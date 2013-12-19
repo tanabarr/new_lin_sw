@@ -40,7 +40,7 @@ the first line in this section matches ": or equal followed by a non-space chara
 
 Solution:
 
-instead of .* use .\{-}.
+instead of .* use .\{-}.										
 
 %s/style=".\{-}"//g
 

@@ -1,0 +1,11 @@
+When it doesn't work
+uninstall virtualenvwrapper and then virtualenv with Pip
+reinstall virtualenvwrapper (will install virtualenv has dependency)
+
+tutorial:
+http://virtualenvwrapper.readthedocs.org/en/latest/command_ref.html
+http://virtualenvwrapper.readthedocs.org/en/latest/
+
+Tips:
+"deactivate" to X it an environment
+

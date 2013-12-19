@@ -8,4 +8,4 @@ As of version 0.5a9, EasyInstall analyzes packages to determine whether they can
 
 --always-unzip will always unzip the files in the egg on installation, otherwise it will determine whether it's safe to leave the zipped egg.
 
-easy_install -m… To remove a package (have to delete egg files and config files after including site-packages)
+easy_install -m… To remove a package (have to delete egg files and config files after including site-packages)??not true
