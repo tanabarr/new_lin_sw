@@ -1,0 +1,5 @@
+correct upstart configurations for deluge
+install deluged & deluge-web
+create dedicated user
+
+http://dev.deluge-torrent.org/wiki/UserGuide/InitScript/Ubuntu%2011.04%2B%20(Upstart%20Job)
