@@ -3,3 +3,6 @@ install deluged & deluge-web
 create dedicated user
 
 http://dev.deluge-torrent.org/wiki/UserGuide/InitScript/Ubuntu%2011.04%2B%20(Upstart%20Job)
+
+with the deluged accessed through the console, required to have the correct authentication file within the home directory of any user trying to access it.
+ >> cp /var/lib/deluge/.config/deluge/auth ~/.config/deluge/
