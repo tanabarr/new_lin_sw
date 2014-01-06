@@ -15,3 +15,7 @@ vim-surround
 
 exhaustive:
 https://github.com/vim-scripts?tab=repositories
+
+030114-
+try using neobundle to organise plug-ins
+unite seems like a good plug-in to organise searching
