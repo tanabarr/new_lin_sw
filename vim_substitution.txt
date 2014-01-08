@@ -40,7 +40,7 @@ the first line in this section matches ": or equal followed by a non-space chara
 
 Solution:
 
-instead of .* use .\{-}.										
+instead of .* use .\{-}								
 
 %s/style=".\{-}"//g
 
@@ -70,3 +70,9 @@ replacing the contents between pairs of braces was quoted strings
 
 /}[^"].*;/
 matches things between two characters, greater than zero length, without the specified character.
+/*****************************************//*****************************************/
+:%s/print [^(]\(.*\)/print(\1)/gc
+ from __future__ import print_function¬
+
+:s/, \(\w\+\)/, '\1'/gc
+surround strings delimited by, with '

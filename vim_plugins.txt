@@ -20,3 +20,11 @@ https://github.com/vim-scripts?tab=repositories
 try using neobundle to organise plug-ins
 unite seems like a good plug-in to organise searching
 YouCompleteMe provides a number of complete options including Jedi for python, some compiled components
+reinstalled vim and changed executable path for default vim to /bin/vim.exe (which is required version)
+unite, Align added
+yankring removed as already covered by unite (how?)
+need to add unite mappings 
+need to add ycm prerequisites (install.sh --clang-completer :in ycm directory)
+installing as per:
+https://github.com/Valloric/YouCompleteMe
+seems to work fine on Linux. Extra help is required in cygwin

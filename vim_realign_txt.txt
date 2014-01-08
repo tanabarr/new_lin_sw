@@ -15,3 +15,5 @@ Finding a procedure in a C program
 The Vim program was designed by programmers for programmers. You can use it to locate procedures within a set of C or C++ program files.l
 
 vim : gq} seems to be sufficient on its own
+
+align plug-in
