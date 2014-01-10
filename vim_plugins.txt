@@ -28,3 +28,12 @@ need to add ycm prerequisites (install.sh --clang-completer :in ycm directory)
 installing as per:
 https://github.com/Valloric/YouCompleteMe
 seems to work fine on Linux. Extra help is required in cygwin
+
+090114
+vimproc
+voom
+autocomplete
+commenter
+
+Is ycm working?
+If not we can use omniCppComplete
