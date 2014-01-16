@@ -11,3 +11,12 @@ Extract script contents to ~/.vim/
 Auto complete works on objects and pointers. Doesn't really work on anonymous class objects.
 
 
+
+----
+
+
+you complete me is a good cross purpose auto complete plug-in, clang for c/++, Jedi for python 
+requires cmake 2.8(doesn't ship with centos 6.4)
+requires clang (which also doesn't...)
+
+Clang_complete can also be installed stand-alone (requires development package)
