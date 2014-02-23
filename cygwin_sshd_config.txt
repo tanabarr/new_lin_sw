@@ -1,0 +1,51 @@
+cygwin_sshd_configurations
+
+If sshd had been previously installed on the system, the following cleanup should be performed before invoking ssh-host-config:
+
+# Remove sshd service
+cygrunsrv --stop sshd
+cygrunsrv --remove sshd
+# Delete any sshd or related users (such as cyg_server) from /etc/passwd
+#   (use your favorite editor)
+# Delete any sshd or relaged users (such as cyg_server) from the system
+net user sshd /delete
+net user cyg_server /delete
+
+initial steps to install:
+
+cygwin packages (rerun setup if necessary -- you can add packages after you have already installed Cygwin).
+
+Admin --> cygrunsrv
+Net --> openssh
+
+Open a new bash shell window and run the SSH configure stuff.
+
+ssh-host-config
+
+This step whttp://docs.oracle.com/cd/E24628_01/install.121/e22624/preinstall_req_cygwin_ssh.htmill create necessary configuration files, a priviledge separation user and necessary directories.
+
+When prompted with "CYGWIN=" type for following:
+
+tty ntsec
+
+Now you are ready to start the service.
+
+cygrunsrv -S sshd
+
+
+now run ssh-host-config
+
+doesn't seem to work, can't logon with local user, cyg_server logs out after displaying splash screen(cygwin)
+
+----
+
+referring to the top following documentation:
+
+
+http://docs.oracle.com/cd/E24628_01/install.121/e22624/preinstall_req_cygwin_ssh.htm
+
+set CYGWIN environment variable in cygwin.bat to align with above value (tty ntsec).
+
+tan password change to ^2A
+
+solution was to add password for cygwin user and use correct character case in login name!
