@@ -37,3 +37,6 @@ commenter
 
 Is ycm working?
 If not we can use omniCppComplete
+
+010314
+csupport can use visual mode to select it and executed macro :\colon it
