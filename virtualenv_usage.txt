@@ -7,5 +7,26 @@ http://virtualenvwrapper.readthedocs.org/en/latest/command_ref.html
 http://virtualenvwrapper.readthedocs.org/en/latest/
 
 Tips:
+"mkvirtalenv <environment_name>" create workspace in $WoRKON_HOME
+"workon" than and auto complete to select the project you want to work on
 "deactivate" to X it an environment
 
+----
+020414
+
+installing on Ubuntu:
+pip install virtualenvwrapper
+following latest commands has a link above.
+don't forget to add source command for script to .bashrc
+then workon will work
+
+
+----
+If just using virtualenv, can use:
+virtualenv <directory>
+cd <directory>
+source bin/activate
+
+then just use:
+deactivate 
+to get out of the environment
