@@ -72,3 +72,6 @@ Mantis gives easier to read reflection of the revision changes than with rev_tre
 sub sw -b 212 (when inside current branch checkout)
 
 
+## STARTING BUG
+sub sb -d 6640 VIMS
+sub co -b 6640
