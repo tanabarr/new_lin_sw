@@ -76,3 +76,18 @@ matches things between two characters, greater than zero length, without the spe
 
 :s/, \(\w\+\)/, '\1'/gc
 surround strings delimited by, with '
+
+----
+290414
+
+converting cheat sheet keyboard commands To vocola commands
+
+Switch round commands and key mappings :
+%s/\(^.*\)  \(\w.*\)/\2 = {\1};/gc
+
+highlighting section headers:
+%s/^\S\+$/\r### & ###\r/gc
+
+Substituting options on cheap sheet delimited by "/" with command substitution form in vocola 
+%s/ \(\w\+\)\/\(\w\+\)\( .*+\)\(\w\+\)\/\(\w\+\)/ (\1=\4|\2=\5)\3$1/gc
+
