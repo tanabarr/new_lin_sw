@@ -75,3 +75,13 @@ sub sw -b 212 (when inside current branch checkout)
 ## STARTING BUG
 sub sb -d 6640 VIMS
 sub co -b 6640
+
+## MERGE
+
+# dev_merge (updated parent branch changes onto bug branch)
+# make sure working copies are clean
+# merges changes into current working directory which should be head of checked out bug branch
+sub dm (-d performs dry run)
+sub cm (commits these changes to the bug branch)
+ 
+sub up may be required in between the 2 commands
