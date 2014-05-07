@@ -91,3 +91,8 @@ highlighting section headers:
 Substituting options on cheap sheet delimited by "/" with command substitution form in vocola 
 %s/ \(\w\+\)\/\(\w\+\)\( .*+\)\(\w\+\)\/\(\w\+\)/ (\1=\4|\2=\5)\3$1/gc
 
+----
+060514
+
+Replacing uppercae with lower
+s/\u/\l&/
