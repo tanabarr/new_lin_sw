@@ -9,7 +9,7 @@ svn ci (in the relevant directory)
 ## password will be stored and subsequent  sub commits will succeed. (Fails because no bugid
 ## provided by default in svn and Mantis is looking for one in the description)
 ## stored in ~/.subversion/auth sensitive stop
-Ci . /<filename>
+"Ci . /<filename>
 
 # Start a bug from another bug branch (creates the bug branch directory, don't use -s)
 sub sb -b 4316 4317
@@ -85,3 +85,7 @@ sub dm (-d performs dry run)
 sub cm (commits these changes to the bug branch)
  
 sub up may be required in between the 2 commands
+
+#/ merge back to dev from bug
+
+Need to check out dev branch first, merge bug to dev working dir (mb <bug_no>) when in dev root, cm to commit the changes to the dev_branch
