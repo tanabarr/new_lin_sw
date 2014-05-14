@@ -89,3 +89,12 @@ sub up may be required in between the 2 commands
 #/ merge back to dev from bug
 
 Need to check out dev branch first, merge bug to dev working dir (mb <bug_no>) when in dev root, cm to commit the changes to the dev_branch
+
+
+### problems with merging from one bug to another
+remove directory recursively using 
+ >> sub ci -R
+
+This was required to remove domains directory before development merge in order to avoid strange conflict error with the directory
+
+sub mb can take a while
