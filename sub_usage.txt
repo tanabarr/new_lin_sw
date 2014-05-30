@@ -98,3 +98,15 @@ remove directory recursively using
 This was required to remove domains directory before development merge in order to avoid strange conflict error with the directory
 
 sub mb can take a while
+
+### REVERTING
+
+reverse merge from current revision back to target revision onto working directory
+ >> svn merge -r <current>:<target> .
+ >> commit
+
+start with fully updated version in working
+
+and again using sub
+ >> sub merge -d -r <current>:<target> -b BUG_6650_BRANCH
+ >> sub cm -R
