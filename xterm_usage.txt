@@ -1,0 +1,4 @@
+-e specify programme
+-c commandline input
+ >> export DISPLAY=:0.0
+-maximised
