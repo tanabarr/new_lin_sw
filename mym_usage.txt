@@ -25,3 +25,7 @@ Finally, I think that the default.py file may not exists until you have selected
      mym variant:cust-1 wibble
 
 The ‘wibble’ is so that mym fails and stops, so you can then edit default.py.
+
+mym --static_analysis 
+?? is that static_code_analysis??
+shows paylint analysis
