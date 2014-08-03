@@ -2,3 +2,8 @@
 -c commandline input
  >> export DISPLAY=:0.0
 -maximised
+ 
+can start screen session, so create multiple screens, then in one of the screens 
+ >> xterm -maximized -e /bin/bash -c "screen -x" &
+
+This will start a screen session shared between multiple terminal windows with an xterm open on the physical display which defaults to the first screen of the session (screen 0)
